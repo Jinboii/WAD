@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <!--Meta “viewport” is used to make the web page responsive to the browser/device width-->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <title>Listings</title>
+    
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    </head>
+    <body onload="displaylist()">
+        <a href="upload.html"><button>Create</button></a>
+        
+        <div id="listings_of_items"></div>
+        
+
+
+        <script>
+            function displaylist() {
+                console.log("===[START] display_default() ===")
+
+                // Call API and get data from db to display
+                let api_endpoint_url = "display.php"
+
+
+                // Use Axios to call API asynchronously
+                axios.get(api_endpoint_url) 
+                .then(response => {
+
+                    //data from db
+                    var listing_list = response.data;
+                    for (list in listing_list) {
+                        var img = listing_list[list].img;
+                        var title = listing_list[list].title;
+                        var description = listing_list[list].description;
+                        var category = listing_list[list].category;
+                        var listing_id = listing_list[list].listing_id;
+                        var userid = listing_list[list].userid;
+                        var offer = listing_list[list].offer;
+                        var accept = listing_list[list].accept;
+                        var img_direct = "uploads/";
+                        var img_link = img_direct.concat(img)
+
+                
+                       
+                        //#card
+                        var card = document.createElement("span");
+                        card.setAttribute("class","card");
+                        card.setAttribute("style","width:400px");
+                        card.setAttribute("id",listing_id);
+
+                        //#img
+                        var cardimg = document.createElement("IMG");
+                        cardimg.setAttribute("src",img_link);
+                        card.appendChild(cardimg);
+
+                        //#card-body
+                        var cardbody = document.createElement("div");
+                        cardbody.setAttribute("class","card-body");
+
+                        //#title
+                        var cardtitle = document.createElement("h4");
+                        cardtitle.setAttribute("class","card-title");
+                        var ctitle = document.createTextNode(title);
+                        cardtitle.appendChild(ctitle);
+
+                        //#card-text
+                        var cardtext = document.createElement("p");
+                        cardtext.setAttribute("class","card-text");
+                        var ctext = document.createTextNode(description);
+                        cardtext.appendChild(ctext);
+
+                        //#update button
+                        var button_update = document.createElement("a");
+                        button_update.setAttribute("class","btn btn-primary");
+                        var data_url_update = "create.html?listing_id=".concat(listing_id);
+                        button_update.setAttribute("href",data_url_update);
+                        button_update.setAttribute("id","update");
+                        var updatebuttontext = document.createTextNode("Update");
+                        button_update.appendChild(updatebuttontext);
+
+                        //#delete button
+                        var button_delete = document.createElement("a");
+                        button_delete.setAttribute("class","btn btn-danger");
+                        var data_url_delete = "delete.php?".concat("listing_id=",listing_id);
+                        button_delete.setAttribute("href",data_url_delete);
+                        button_delete.setAttribute("id","delete");
+                        var deletebuttontext = document.createTextNode("Delete");
+                        button_delete.appendChild(deletebuttontext);
+
+                        //Attach card components to card-body
+                        cardbody.appendChild(cardtitle);
+                        cardbody.appendChild(cardtext);
+                        cardbody.appendChild(button_update);
+                        cardbody.appendChild(button_delete)
+
+                        //Attach card-body to card
+                        card.appendChild(cardbody);
+
+                        console.log(card);
+
+
+                        document.getElementById("listings_of_items").appendChild(card);
+                
+                        };
+
+
+                    
+                })
+                .catch(error => {
+                    console.log(error.message)
+                })
+
+                console.log("===[END] display_default() ===")
+                //end of display list, if to integrate display archieve start a new axios here
+            };
+
+            // function updatelist() {
+            //     // Call API and get data from db to display
+            //     let api_endpoint_url = "test.php";
+
+            //     console.log("===[START] display_default() ===")
+
+            //     // Use Axios to call API asynchronously
+            //     axios.get(api_endpoint_url, {params:para}) 
+            //     .then(response => {
+
+            //         console.log(response.data)
+                    
+            //     })
+            //     .catch(error => {
+            //         console.log(error.message)
+            //     })
+
+            //     console.log("===[END] display_default() ===")
+       
+                
+            // };
+
+            // function deletelist() {
+
+            // }
+            
+            
+            
+        </script>
+
+
+    </body>
+    
+
+
+
+</html>
