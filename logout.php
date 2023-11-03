@@ -1,6 +1,6 @@
 <?php
     header("Access-Control-Allow-Origin: *");
     session_unset();
-    header('Location: user_login.html?success');
+    header('Location: login.html?success');
     exit();
 ?>

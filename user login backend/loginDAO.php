@@ -3,7 +3,7 @@ class LoginDAO {
     private $db_host = 'localhost';
     private $db_name = 'rebirth';
     private $db_user = 'root';
-    private $db_password = 'root';
+    private $db_password = '';
 
     public function checkLogin($username, $password) {
         $conn = new mysqli($this->db_host, $this->db_user, $this->db_password, $this->db_name);
