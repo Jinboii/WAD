@@ -2,7 +2,7 @@
    header("Access-Control-Allow-Origin: *");
    session_start();
 
-
+   //test commit
    // to draw the user id and type from session
    $userid = "1234"; 
    $usertype = "user";  //change here to test for org and indiv
