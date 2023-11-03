@@ -5,7 +5,7 @@
 
    // to draw the user id and type from session
    $userid = "1234"; 
-   $usertype = "organization";  //change here to test for org and indiv
+   $usertype = "user";  //change here to test for org and indiv
 
    $processed_data = [];
    array_push($processed_data,["userid"=> $userid,"usertype"=> $usertype]);
