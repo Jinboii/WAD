@@ -28,7 +28,7 @@
         <!-- Template Stylesheet -->
         <link href="css/style.css" rel="stylesheet">
         <!-- Vue.js CDN -->
-<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+        <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script> -->
     </head>
 
     <body>
@@ -109,18 +109,19 @@
                         <small class="d-inline-block fw-bold text-dark text-uppercase bg-light border border-primary rounded-pill px-4 py-1 mb-3">Giver</small>
                         <h1 class="display-5 mb-5">Login</h1>
                     </div>
-                    <div class="row g-4 form">
+                    <form class="row g-4 form" action="login.php" method="post">
                         <div class="col-lg-4 col-md-6">
-                            <input type="text" class="form-control border-primary p-2" id="username" placeholder="Enter Your Username" v-model="username">
+                            <input type="text" class="form-control border-primary p-2" name="username" placeholder="Enter Your Username" v-model="username">
                         </div>
                        
                         <div class="col-lg-4 col-md-6">
-                            <input type="password" class="form-control border-primary p-2" id="password" placeholder="Enter Your Password" v-model="password">
+                            <input type="password" class="form-control border-primary p-2" name="password" placeholder="Enter Your Password" v-model="password">
                         </div>
+
                         <div class="col-12 text-center">
-                            <button type="button" class="btn btn-primary px-5 py-3 rounded-pill" @click="login">Login</button>
+                            <input type="submit" class="btn btn-primary px-5 py-3 rounded-pill" value="Login"></input>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
             <div class="col-1">
@@ -206,60 +207,60 @@
         <!-- Template Javascript -->
         <script src="js/main.js"></script>
         <script>
-            new Vue({
-                el: '#app', // This should match the ID of your form container
-                data: {
-                    username: '',
-                    password: ''
-                },
-                methods: {
-                    login() {
-                        const loginData = {
-                            username: this.username,
-                            password: this.password
-                        };
+            // var current_link = window.location.href;
+            // if (current_link.search("login")>-1) {
+            //     document.getElementById("toploginbutton").setAttribute("class","d-none");
+            // }
+            // console.log(current_link)
+            // if (current_link.search("success")>-1) {
+            //     alert("Successful Logout!")
+            // }
+
+
+
+
+
+
+
+
+
+            // new Vue({
+            //     el: '#app', // This should match the ID of your form container
+            //     data: {
+            //         username: '',
+            //         password: ''
+            //     },
+            //     methods: {
+            //         login() {
+            //             const loginData = {
+            //                 username: this.username,
+            //                 password: this.password
+            //             };
         
-                        fetch('process_login.php', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify(loginData)
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            alert(data.message);
-                            if (data.success) {
-                                // Handle login success, e.g., redirect to another page
-                                window.location.href = '/dashboard.html'; // Change to your success page
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Error:', error);
-                            alert('There was an error processing your login. Please try again.');
-                        });
-                    }
-                }
-            });
+            //             fetch('process_login.php', {
+            //                 method: 'POST',
+            //                 headers: {
+            //                     'Content-Type': 'application/json'
+            //                 },
+            //                 body: JSON.stringify(loginData)
+            //             })
+            //             .then(response => response.json())
+            //             .then(data => {
+            //                 alert(data.message);
+            //                 if (data.success) {
+            //                     // Handle login success, e.g., redirect to another page
+            //                     window.location.href = 'index.html'; // Change to your success page
+            //                 }
+            //             })
+            //             .catch(error => {
+            //                 console.error('Error:', error);
+            //                 alert('There was an error processing your login. Please try again.');
+            //             });
+            //         }
+            //     }
+            // });
         </script>
-
-        <script>
-            var current_link = window.location.href;
-            if (current_link.search("login")>-1) {
-                document.getElementById("toploginbutton").setAttribute("class","d-none");
-            }
-
-            if (current_link.search("success")>-1) {
-                alert("Successful Logout!")
-            }
-
-
-
-
-
-
-        </script>
-        
+     
         
     </body>
 </html>
