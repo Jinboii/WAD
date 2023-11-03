@@ -1,11 +1,16 @@
 <?php
+    session_start();
     header("Access-Control-Allow-Origin: *");
     require_once "autoload.php";
     
+    $userid = "";
+    $usertype = "";
     # Retrieve userid & usertype from the html/userlog
-    if (isset($_REQUEST["userid"]) && $usertype = $_REQUEST["usertype"] ){
-        $userid = $_REQUEST["userid"];
-        $usertype = $_REQUEST["usertype"];
+    if (isset($_SESSION["userid"])) {
+        $userid = $_SESSION["userid"];
+    }
+    if (isset($_SESSION["usertype"])) {
+        $usertype = $_SESSION["usertype"];
     }
     
     # Create a new listingDAO object

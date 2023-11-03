@@ -124,12 +124,14 @@
 
                 var user_id = response.data[0].userid;
                 var user_type = response.data[0].usertype;
+
+
                 
-                if (user_id=='') {
+                if (user_id=='' || user_id == undefined || user_id== null) {
                     var loginandout = document.getElementById("loginandout");
                     var loginandout_textnode = document.createTextNode("Login");
                     loginandout.appendChild(loginandout_textnode);
-                    loginandout.href = "user_login.html";
+                    loginandout.href = "login.html";
                 }
                 else {
                     var loginandout = document.getElementById("loginandout");
@@ -259,6 +261,7 @@
                 .then(response => {
 
                     var listing_list = response.data;
+                    console.log(listing_list);
                     
                     for (list in listing_list) {
                         var listing_id = listing_list[list].listing_id; 

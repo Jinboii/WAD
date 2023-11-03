@@ -68,7 +68,7 @@
                             <a href="contact.html" class="nav-item nav-link">Contact</a>
                         </div>
                         <button class="btn-search btn btn-primary btn-md-square me-4 rounded-circle d-none d-lg-inline-flex" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fas fa-search"></i></button>
-                        <a href="" class="btn btn-primary py-2 px-4 d-none d-xl-inline-block rounded-pill">Login</a>
+                        <a href="" class="btn btn-primary py-2 px-4 d-none d-xl-inline-block rounded-pill" id="toploginbutton">Login</a>
                     </div>
                 </nav>
             </div>
@@ -207,14 +207,15 @@
         <!-- Template Javascript -->
         <script src="js/main.js"></script>
         <script>
-            // var current_link = window.location.href;
-            // if (current_link.search("login")>-1) {
-            //     document.getElementById("toploginbutton").setAttribute("class","d-none");
-            // }
-            // console.log(current_link)
-            // if (current_link.search("success")>-1) {
-            //     alert("Successful Logout!")
-            // }
+            var current_link = window.location.href;
+
+            if (current_link.search("login")>-1) {
+                document.getElementById("toploginbutton").setAttribute("class","d-none");
+            }
+            console.log(current_link)
+            if (current_link.search("success")>-1) {
+                alert("Successful Logout!")
+            }
 
 
 

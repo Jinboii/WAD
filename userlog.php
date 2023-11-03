@@ -1,7 +1,7 @@
 <?php
    header("Access-Control-Allow-Origin: *");
    session_start();
-
+   
    $userid = $_SESSION["userid"] ; 
    $usertype = $_SESSION["usertype"];
    
