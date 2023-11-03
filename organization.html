@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <!--Meta “viewport” is used to make the web page responsive to the browser/device width-->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Listings</title>
+    
+        <!-- Bootstrap & Javascript -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    </head>
+
+    <body onload="org_display()">
+    <div id="orgname">Organization name to edit</div>
+    <div id="orgdesc">Organization description to edit</div>
+    Current: <div id="current"></div>
+    Successes:<div id="archive"></div>
+
+
+    <script>
+        function org_display() {
+
+            
+            var current_link = window.location.href;
+            var org_string_position = current_link.search("Organization") + 13;
+            var user_id = current_link.substr(org_string_position);
+            
+            console.log(user_id);
+
+            let display_url = "display.php"
+            let para = {userid : user_id, 
+                usertype : "organization"} ;  
+
+            axios.get(display_url, {params:para}) 
+                .then(response => {
+                    
+            var listing_list = response.data;
+                  
+            for (list in listing_list) {
+                var listing_id = listing_list[list].listing_id; 
+                var title = listing_list[list].title;
+                var description = listing_list[list].description;
+                var category = listing_list[list].category;
+                var image = listing_list[list].image;
+                var organization = listing_list[list].organization;
+                var donater = listing_list[list].donater;
+                        
+                var img_directory = "uploads/";
+                var img_link = img_directory.concat(image);
+                        
+                         
+                //#card
+                var card = document.createElement("span");
+                card.setAttribute("class","card col-4 h-30");
+                //card.setAttribute("style","width:400px");
+                card.setAttribute("id",listing_id);
+
+                //#image
+                var cardimg = document.createElement("IMG");
+                cardimg.setAttribute("src",img_link);
+                cardimg.setAttribute("class","img-fluid");
+                card.appendChild(cardimg);
+
+                //#card-body
+                var cardbody = document.createElement("div");
+                cardbody.setAttribute("class","card-body");
+
+                //#title
+                var cardtitle = document.createElement("h4");
+                cardtitle.setAttribute("class","card-title");
+                var ctitle = document.createTextNode(title);
+                cardtitle.appendChild(ctitle);
+
+                //#card-text
+                var cardtext = document.createElement("p");
+                cardtext.setAttribute("class","card-text");
+                var ctext = document.createTextNode(description);
+                cardtext.appendChild(ctext);
+
+                //Attach card components to card-body
+                cardbody.appendChild(cardtitle);
+                cardbody.appendChild(cardtext);
+                card.appendChild(cardbody);    
+                        
+
+                document.getElementById("current").appendChild(card);
+                }
+                    
+                    
+                })
+                .catch(error => {
+                    console.log(error.message)
+                })  
+
+
+
+            let display_archive_url = "displayarchive.php"
+                
+
+                axios.get(display_archive_url, {params:para}) 
+                .then(response => {
+                    
+                var archive_list = response.data;
+
+                  
+                for (archive in archive_list) {
+                    var listing_id = archive_list[archive].listing_id; 
+                    var title = archive_list[archive].title;
+                    var description = archive_list[archive].description;
+                    var category = archive_list[archive].category;
+                    var image = archive_list[archive].image;
+                    var organization = archive_list[archive].organization;
+                    var donater = archive_list[archive].donater;
+                        
+                    var img_directory = "uploads/";
+                    var img_link = img_directory.concat(image);
+                        
+                         
+                    //#card
+                    var card = document.createElement("span");
+                    card.setAttribute("class","card col-4 h-30");
+                    //card.setAttribute("style","width:400px");
+                    card.setAttribute("id",listing_id);
+
+                    //#image
+                    var cardimg = document.createElement("IMG");
+                    cardimg.setAttribute("src",img_link);
+                    cardimg.setAttribute("class","img-fluid");
+                    card.appendChild(cardimg);
+
+                    //#card-body
+                    var cardbody = document.createElement("div");
+                    cardbody.setAttribute("class","card-body");
+
+                    //#title
+                    var cardtitle = document.createElement("h4");
+                    cardtitle.setAttribute("class","card-title");
+                    var ctitle = document.createTextNode(title);
+                    cardtitle.appendChild(ctitle);
+
+                    //#card-text
+                    var cardtext = document.createElement("p");
+                    cardtext.setAttribute("class","card-text");
+                    var ctext = document.createTextNode(description);
+                    cardtext.appendChild(ctext);
+
+                    //Attach card components to card-body
+                    cardbody.appendChild(cardtitle);
+                    cardbody.appendChild(cardtext);
+                    card.appendChild(cardbody);    
+                        
+
+                    document.getElementById("archive").appendChild(card);
+                }
+                    
+                    
+                })
+                .catch(error => {
+                    console.log(error.message)
+                })  
+      
+
+
+        }
+    </script>
+    </body>
+</html>

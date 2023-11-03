@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>ReBirth - Give Life To Your Items</title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta content="" name="keywords">
+        <meta content="" name="description">
+
+        <!-- Google Web Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Playball&display=swap" rel="stylesheet">
+
+        <!-- Icon Font Stylesheet -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+        <!-- Libraries Stylesheet -->
+        <link href="lib/animate/animate.min.css" rel="stylesheet">
+        <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+        <link href="lib/owlcarousel/owl.carousel.min.css" rel="stylesheet">
+
+        <!-- Customized Bootstrap Stylesheet -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Template Stylesheet -->
+        <link href="css/style.css" rel="stylesheet">
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    </head>
+
+    <body onload="displaylist()">
+
+        <!-- Spinner Start -->
+        <div id="spinner" class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
+            <div class="spinner-grow text-primary" role="status"></div>
+        </div>
+        <!-- Spinner End -->
+
+
+        <!-- Navbar start -->
+        <div class="container-fluid nav-bar">
+            <div class="container">
+                <nav class="navbar navbar-light navbar-expand-lg py-4">
+                    <a href="Front/index.html" class="navbar-brand">
+                        <h1 class="text-primary fw-bold mb-0">Re<span class="text-dark">Birth</span> </h1>
+                    </a>
+                    <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                        <span class="fa fa-bars text-primary"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <div class="navbar-nav mx-auto">
+                            <a href="index.html" class="nav-item nav-link active">Home</a>
+                            <div class="nav-item dropdown">
+                                <a id="sortcat" href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Listings</a>
+                                <div class="dropdown-menu bg-light">
+                                    <a href="listing.html" class="dropdown-item">All</a>
+                                    <a href="listing.html?category=Food" class="dropdown-item">Food</a>
+                                    <a href="listing.html?category=Education" class="dropdown-item">Educational Materials</a>
+                                    <a href="listing.html?category=Clothing" class="dropdown-item">Clothing</a>
+                                    <a href="listing.html?category=Electronics" class="dropdown-item">Electronics</a>
+                                </div>
+                            </div>
+                            <a href="service.html" class="nav-item nav-link">Community</a>
+                        
+                            <a href="contact.html" class="nav-item nav-link">Contact</a>
+                        </div>
+                        <button class="btn-search btn btn-primary btn-md-square me-4 rounded-circle d-none d-lg-inline-flex" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fas fa-search"></i></button>
+                        <a id="profileicon"></a>
+                        <a href="" class="btn btn-primary py-2 px-4 d-none d-xl-inline-block rounded-pill" id="loginandout"></a>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <!-- Navbar End -->
+
+
+        <!-- Modal Search Start -->
+        <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-fullscreen">
+                <div class="modal-content rounded-0">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Search for an organization</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body d-flex align-items-center">
+                        <div class="input-group w-75 mx-auto d-flex">
+                            <input type="search" class="form-control bg-transparent p-3" placeholder="Search ReBirth" aria-describedby="search-icon-1">
+                            <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal Search End -->
+
+
+        <!-- Hero Start -->
+        <div class="container-fluid bg-custom py-6 my-4 mt-0">
+            <div class="container text-center animated bounceInDown">
+                <h1 class="display-1 mb-3">All Listings</h1>
+                <h3 class="display-5 mb-3" style="font-size: x-large;">Browse our listings to find a cause you can get behind!</h3>
+            </div>
+        </div>
+        <!-- Hero End -->
+
+
+
+
+        
+        <div id="message"></div>
+        <div id="org_buttons"></div>
+        <div id="listings_of_items" class="container-fluid row"></div>
+        <div id="archive" class="container-fluid row"></div>
+
+        <!-- Blog End -->
+        <script>
+            function displaylist() {
+    
+                let usercheck_url = "userlog.php"
+
+                axios.get(usercheck_url) //FIRST AXIOS START  --CHECK FOR USERTYPE & USERID
+                .then(response => {
+
+                var user_id = response.data[0].userid;
+                var user_type = response.data[0].usertype;
+                
+                if (user_id=='') {
+                    var loginandout = document.getElementById("loginandout");
+                    var loginandout_textnode = document.createTextNode("Login");
+                    loginandout.appendChild(loginandout_textnode);
+                    loginandout.href = "user_login.html";
+                }
+                else {
+                    var loginandout = document.getElementById("loginandout");
+                    var loginandout_textnode = document.createTextNode("Logout");
+                    loginandout.appendChild(loginandout_textnode);
+                    
+                    var profileicon = document.getElementById("profileicon");
+                    var profileimg = document.createElement("IMG");
+                    profileimg.setAttribute("src","default_pictures/profile.png");
+            
+                    var profilelink = document.createElement("a");
+                    profilelink.setAttribute("href","analytics.html")
+
+                   
+                    if (user_type == "organization") {
+                        var org_link = "organization.html?Organization=".concat(user_id);
+                        profilelink.setAttribute("href",org_link);
+                    }
+
+                    profilelink.appendChild(profileimg);
+
+                    profileicon.appendChild(profilelink);
+                    
+                    loginandout.href = "logout.php"; 
+                }
+
+                if (user_type == "organization") {  //CONDITIONAL TO DETERMINE ORG OR OTHERS DISPLAY
+                    
+                    var sortcat = document.getElementById("sortcat");
+                    sortcat.setAttribute("class","d-none")
+
+                    //#create button
+                    var anchorlink = document.createElement("a");
+                    anchorlink.setAttribute("href","upload.html");
+                    var createbutton = document.createElement("button");
+                    var createbuttontext = document.createTextNode("Create");
+                    createbutton.appendChild(createbuttontext);
+                    anchorlink.appendChild(createbutton)
+                    document.getElementById("org_buttons").appendChild(anchorlink);
+
+                    document.getElementById("archive").innerHTML = "<h2>Past listings</h2>";
+
+
+                    //# archive listing display
+                    let display_archive_url = "displayarchive.php"
+                    let para = {userid : user_id, 
+                    usertype : user_type} ;  
+
+                    axios.get(display_archive_url, {params:para}) 
+                    .then(response => {
+                    
+                    var listing_list = response.data;
+                  
+                    for (list in listing_list) {
+                        var listing_id = listing_list[list].listing_id; 
+                        var title = listing_list[list].title;
+                        var description = listing_list[list].description;
+                        var category = listing_list[list].category;
+                        var image = listing_list[list].image;
+                        var organization = listing_list[list].organization;
+                        var donater = listing_list[list].donater;
+                        
+                         var img_directory = "uploads/";
+                         var img_link = img_directory.concat(image);
+                        
+                         
+                         //#card
+                         var card = document.createElement("span");
+                         card.setAttribute("class","card col-4 h-30");
+                         //card.setAttribute("style","width:400px");
+                         card.setAttribute("id",listing_id);
+
+                         //#image
+                         var cardimg = document.createElement("IMG");
+                         cardimg.setAttribute("src",img_link);
+                         cardimg.setAttribute("class","img-fluid");
+                         card.appendChild(cardimg);
+
+                         //#card-body
+                         var cardbody = document.createElement("div");
+                         cardbody.setAttribute("class","card-body");
+
+                         //#title
+                         var cardtitle = document.createElement("h4");
+                         cardtitle.setAttribute("class","card-title");
+                         var ctitle = document.createTextNode(title);
+                         cardtitle.appendChild(ctitle);
+
+                         //#card-text
+                         var cardtext = document.createElement("p");
+                         cardtext.setAttribute("class","card-text");
+                         var ctext = document.createTextNode(description);
+                         cardtext.appendChild(ctext);
+
+                         //Attach card components to card-body
+                         cardbody.appendChild(cardtitle);
+                         cardbody.appendChild(cardtext);
+                         card.appendChild(cardbody);    
+                        
+
+                         document.getElementById("archive").appendChild(card);
+                        }
+                    
+                })
+                .catch(error => {
+                    console.log(error.message)
+                })
+                    }
+
+
+                    
+                var current_link = window.location.href;
+                var choosen_category = "";
+                
+                if (current_link.search("category")>-1) {
+                    var category_string_position = current_link.search("category") + 9;
+                    var choosen_category = current_link.substr(category_string_position); 
+                }
+
+                let display_process_url = "display.php"
+                let para = {userid : user_id, 
+                usertype : user_type,
+                choosencategory : choosen_category} ; 
+                
+                //SECOND AXIOS START --SEND USERINFO FROM ABOVE TO DETERMINE WHICH LISTING TO DISPLAY
+                axios.get(display_process_url, {params:para}) 
+                .then(response => {
+
+                    var listing_list = response.data;
+                    
+                    for (list in listing_list) {
+                        var listing_id = listing_list[list].listing_id; 
+                        var title = listing_list[list].title;
+                        var description = listing_list[list].description;
+                        var category = listing_list[list].category;
+                        var image = listing_list[list].image;
+                        var organization = listing_list[list].organization;
+                        var donater = listing_list[list].donater;
+                        
+                         var img_directory = "uploads/";
+                         var img_link = img_directory.concat(image);
+                        
+                         
+                         //#card
+                         var card = document.createElement("span");
+                         card.setAttribute("class","card col-4 h-30");
+                         //card.setAttribute("style","width:400px");
+                         card.setAttribute("id",listing_id);
+
+                         //#image
+                         var cardimg = document.createElement("IMG");
+                         cardimg.setAttribute("src",img_link);
+                         cardimg.setAttribute("class","img-fluid");
+                         card.appendChild(cardimg);
+
+                         //#card-body
+                         var cardbody = document.createElement("div");
+                         cardbody.setAttribute("class","card-body");
+
+                         //#title
+                         var cardtitle = document.createElement("h4");
+                         cardtitle.setAttribute("class","card-title");
+                         var ctitle = document.createTextNode(title);
+                         cardtitle.appendChild(ctitle);
+
+                         //#card-text
+                         var cardtext = document.createElement("p");
+                         cardtext.setAttribute("class","card-text");
+                         var ctext = document.createTextNode(description);
+                         cardtext.appendChild(ctext);
+
+                         //Attach card components to card-body
+                         cardbody.appendChild(cardtitle);
+                         cardbody.appendChild(cardtext);
+                        
+                        //org listings button
+                         if (user_type == "organization") {  
+                            //#update button
+                            var button_update = document.createElement("a");
+                            button_update.setAttribute("class","btn btn-primary");
+                            var data_url_update = "upload.html".concat("?listing_id=",listing_id);
+                            button_update.setAttribute("href",data_url_update);
+                            button_update.setAttribute("id","update");
+                            var updatebuttontext = document.createTextNode("Update");
+                            button_update.appendChild(updatebuttontext);
+                            cardbody.appendChild(button_update);
+
+                            //#delete button
+                            var button_delete = document.createElement("a");
+                            button_delete.setAttribute("class","btn btn-danger");
+                            var data_url_delete = "delete.php".concat("?listing_id=",listing_id);
+                            button_delete.setAttribute("href",data_url_delete);
+                            button_delete.setAttribute("id","delete");
+                            var deletebuttontext = document.createTextNode("Delete");
+                            button_delete.appendChild(deletebuttontext);
+                            cardbody.appendChild(button_delete);
+
+                            //#accept button
+                            if(donater!="") {
+                                var button_accept = document.createElement("a");
+                                button_accept.setAttribute("class","btn btn-secondary");
+                                var data_url_accept = "accept.php".concat("?listing_id=",listing_id);
+                                button_accept.setAttribute("href",data_url_accept);
+                                var acceptbuttontext = document.createTextNode("Accept");
+                                button_accept.appendChild(acceptbuttontext);
+                                cardbody.appendChild(button_accept);
+                            }} 
+
+                        // User button
+                         else {
+
+
+                            //Learn abt org button
+                            var button_learn = document.createElement("a");
+                                button_learn.setAttribute("class","btn btn-secondary");
+                                var data_url_organization = "organization.html".concat("?Organization=",organization);
+                                button_learn.setAttribute("href",data_url_organization);
+                                var learnbuttontext = document.createTextNode("Learn more about the organization");
+                                button_learn.appendChild(learnbuttontext);
+                                cardbody.appendChild(button_learn);   
+
+                            //offer button
+                            if(user_type == "user"){
+                                if(donater == "") {
+                                var button_offer = document.createElement("a");
+                                button_offer.setAttribute("class","btn btn-secondary");
+                                var data_url_offer = "offer.php".concat("?listing_id=",listing_id,"&donater_id=",user_id);
+                                button_offer.setAttribute("href",data_url_offer);
+                                var offerbuttontext = document.createTextNode("Offer");
+                                button_offer.appendChild(offerbuttontext);
+                                cardbody.appendChild(button_offer);      
+                                }
+                            }
+
+                            else {document.getElementById("message").innerHTML = "<h2>Please log in to donate</h2>"}
+                        }
+
+                         //Attach card-body to card
+                         card.appendChild(cardbody);
+
+                         //Attach card to display
+                         document.getElementById("listings_of_items").appendChild(card);
+                        }// end of for loop
+                    
+                })
+                .catch(error => {           //SECOND AXIOS END
+                    console.log(error.message)
+                })
+                    
+                })
+                .catch(error => {           //FIRST AXIOS END
+                    console.log(error.message)
+                })
+            
+                            
+            }
+
+
+            
+        </script>
+
+
+        <!-- Footer Start -->
+        <div class="container-fluid footer py-6 my-6 mb-0 bg-light wow bounceInUp" data-wow-delay="0.1s">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="footer-item">
+                            <h1 class="text-primary mb-4 ">Re<span class="text-dark">Birth</span></h1>
+                            
+                            <!-- <div class="footer-icon d-flex">
+                                <a class="btn btn-primary btn-sm-square me-2 rounded-circle" href=""><i class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-primary btn-sm-square me-2 rounded-circle" href=""><i class="fab fa-twitter"></i></a>
+                                <a href="#" class="btn btn-primary btn-sm-square me-2 rounded-circle"><i class="fab fa-instagram"></i></a>
+                                <a href="#" class="btn btn-primary btn-sm-square rounded-circle"><i class="fab fa-linkedin-in"></i></a>
+                            </div> -->
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-3 col-md-6">
+                        <div class="footer-item">
+                            <h4 class="mb-4">Contact Us</h4>
+                            <div class="d-flex flex-column align-items-start custom-colour">
+                                <p><i class="fa fa-map-marker-alt text-primary me-2"></i> Singapore Management University</p>
+                                <p><i class="fa fa-phone-alt text-primary me-2"></i> +65 8675 8675</p>
+                                <p><i class="fas fa-envelope text-primary me-2"></i> rebirth@info.email</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <!-- Footer End -->
+
+
+        <!-- Copyright Start -->
+        <div class="container-fluid copyright bg-dark py-4">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                        <span class="text-light"><a href="#"><i class="fas fa-copyright text-light me-2"></i>Your Site Name</a>, All right reserved.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Copyright End -->
+
+
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-md-square btn-primary rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>   
+
+        
+        <!-- JavaScript Libraries -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="lib/wow/wow.min.js"></script>
+        <script src="lib/easing/easing.min.js"></script>
+        <script src="lib/waypoints/waypoints.min.js"></script>
+        <script src="lib/counterup/counterup.min.js"></script>
+        <script src="lib/lightbox/js/lightbox.min.js"></script>
+        <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+
+        <!-- Template Javascript -->
+        <script src="js/main.js"></script>
+
+
+
+    </body>
+</html>

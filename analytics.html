@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <!--Meta “viewport” is used to make the web page responsive to the browser/device width-->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Listings</title>
+    
+        <!-- Bootstrap & Javascript -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    </head>
+
+    <body onload="analytics_display()">
+    Username:<div id="username"></div>
+    Points Accumulated: <div id="points"></div>
+    Donation History<div id="donation_history"></div>
+
+
+
+    <script>
+        function analytics_display() {
+            let api_endpoint_url = "userlog.php";
+  
+            axios.get(api_endpoint_url) 
+            .then(response => {
+
+                var user_id = response.data[0].userid;
+                var user_type = response.data[0].usertype;
+                document.getElementById("username").innerHTML = user_id;
+
+
+
+                let api_endpoint_url = "analytics.php"
+                let para = {userid : user_id, 
+                            usertype : user_type} ; 
+
+
+                // Use Axios to call API asynchronously
+                axios.get(api_endpoint_url, {params:para}) 
+                .then(response => {
+
+                    var analytics = response.data;
+
+                    var count;
+
+                    for (analytic in analytics) {
+
+                        var listing_id = analytics[analytic].listing_id; 
+                        var title = analytics[analytic].title;
+                        var description = analytics[analytic].description;
+                        var category = analytics[analytic].category;
+                        var image = analytics[analytic].image;
+                        var organization = analytics[analytic].organization;
+                        var donater = analytics[analytic].donater;
+                        count = analytics[analytic].count;
+                        
+                        var img_directory = "uploads/";
+                        var img_link = img_directory.concat(image);
+
+                         //#card
+                         var card = document.createElement("span");
+                         card.setAttribute("class","card col-4 h-30");
+                         //card.setAttribute("style","width:400px");
+                         card.setAttribute("id",listing_id);
+
+                         //#image
+                         var cardimg = document.createElement("IMG");
+                         cardimg.setAttribute("src",img_link);
+                         cardimg.setAttribute("class","img-fluid");
+                         card.appendChild(cardimg);
+
+                         //#card-body
+                         var cardbody = document.createElement("div");
+                         cardbody.setAttribute("class","card-body");
+
+                         //#title
+                         var cardtitle = document.createElement("h4");
+                         cardtitle.setAttribute("class","card-title");
+                         var ctitle = document.createTextNode(title);
+                         cardtitle.appendChild(ctitle);
+
+                         //#card-text
+                         var cardtext = document.createElement("p");
+                         cardtext.setAttribute("class","card-text");
+                         var ctext = document.createTextNode(description);
+                         cardtext.appendChild(ctext);
+
+                         //Attach card components to card-body
+                         cardbody.appendChild(cardtitle);
+                         cardbody.appendChild(cardtext);
+                         card.appendChild(cardbody);    
+
+                        document.getElementById("donation_history").appendChild(card)
+                    }
+                    document.getElementById("points").innerHTML = count;
+                    
+                    
+                })
+                .catch(error => {
+                    console.log(error.message)
+                })
+
+                
+                
+            })
+            .catch(error => {
+                console.log(error.message)
+            })
+
+
+
+
+        }
+
+
+
+
+
+    </script>
+    </body>
+</html>
