@@ -27,9 +27,10 @@
 
         <!-- Template Stylesheet -->
         <link href="css/style.css" rel="stylesheet">
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     </head>
 
-    <body>
+    <body onload="blogview()">
 
         <!-- Spinner Start -->
         <div id="spinner" class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
@@ -65,7 +66,8 @@
                             <a href="contact.html" class="nav-item nav-link">Contact</a>
                         </div>
                         <button class="btn-search btn btn-primary btn-md-square me-4 rounded-circle d-none d-lg-inline-flex" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fas fa-search"></i></button>
-                        <a href="" class="btn btn-primary py-2 px-4 d-none d-xl-inline-block rounded-pill">Login</a>
+                        <a id="profileicon"></a>
+                        <a href="" class="btn btn-primary py-2 px-4 d-none d-xl-inline-block rounded-pill" id="loginandout"></a>
                     </div>
                 </nav>
             </div>
@@ -106,7 +108,9 @@
 
         <!-- Blog Start -->
         <div class="container-fluid blog py-6">
-            
+            <div id="createbutton"></div>
+            <div id="mypost">my posts shown here</div>
+            <div id="allpost">all posts here</div>
         </div>
 
         
@@ -183,5 +187,96 @@
 
         <!-- Template Javascript -->
         <script src="js/main.js"></script>
+        <script>
+            function blogview() {
+                let usercheck_url = "userlog.php"
+
+                axios.get(usercheck_url) //FIRST AXIOS START  --CHECK FOR USERTYPE & USERID
+                .then(response => {
+
+                var user_id = response.data[0].userid;
+                var user_type = response.data[0].usertype;
+                
+                var loginandout = document.getElementById("loginandout");
+                
+                //#top login and logout area
+                if (user_id=='' || user_id == undefined || user_id== null) {
+                    var loginandout_textnode = document.createTextNode("Login");
+                    loginandout.appendChild(loginandout_textnode);
+                    loginandout.href = "login.html"; 
+                }
+                else {
+                    var loginandout_textnode = document.createTextNode("Logout");
+                    loginandout.appendChild(loginandout_textnode);
+    
+                    var profileicon = document.getElementById("profileicon");
+                    var profileimg = document.createElement("IMG");
+                    profileimg.setAttribute("src","default_pictures/profile.png");
+
+                    var profilelink = document.createElement("a");
+                    profilelink.setAttribute("href","analytics.html")
+            
+                    if (user_type == "organization") {
+                        var org_link = "organization.html?Organization=".concat(user_id);
+                        profilelink.setAttribute("href",org_link);
+                    }
+
+                    profilelink.appendChild(profileimg);
+
+                    profileicon.appendChild(profilelink);
+                    
+                    loginandout.href = "logout.php"; 
+
+                    //#create post button
+                    var anchorlink = document.createElement("a");
+                    anchorlink.setAttribute("href","createpost.html");
+                    var createbutton = document.createElement("button");
+                    var createbuttontext = document.createTextNode("Create");
+                    createbutton.appendChild(createbuttontext);
+                    anchorlink.appendChild(createbutton);
+                    var createarea = document.getElementById("createbutton");
+                    createarea.appendChild(anchorlink);
+                }
+
+                // Call API and get data
+                let api_endpoint_url = "displaypost.php"
+
+                // Use Axios to call API asynchronously
+                axios.get(api_endpoint_url) 
+                .then(response => {
+
+                    var allposts = response.data;
+                    console.log(allposts)
+                    for (post in allposts) {
+                        console.log(allpost[post])
+                    }
+                    
+                })
+                .catch(error => {
+                    console.log(error.message)
+                })
+
+
+
+
+
+
+
+
+
+
+
+
+            
+            
+            
+            })
+                .catch(error => {
+                    console.log(error.message)
+                })
+            }
+        </script>
+
+
     </body>
 </html>
