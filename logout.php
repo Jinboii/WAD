@@ -1,6 +1,7 @@
 <?php
+    session_start();
     header("Access-Control-Allow-Origin: *");
-    session_unset();
-    header('Location: successlogout.html');
+    $_SESSION = [];
+    header('Location: login.html?success');
     exit();
 ?>

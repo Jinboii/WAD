@@ -3,7 +3,7 @@
 $host = 'localhost';  // Host name
 $dbname = 'rebirth';  // Database name
 $user = 'root';       // User
-$password = 'root';   // Password
+$password = '';   // Password
 
 // Create connection
 $conn = new mysqli($host, $user, $password, $dbname);

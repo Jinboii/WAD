@@ -27,6 +27,7 @@
 
         <!-- Template Stylesheet -->
         <link href="css/style.css" rel="stylesheet">
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     </head>
 
     <body>
@@ -54,10 +55,11 @@
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Listings</a>
                             <div class="dropdown-menu bg-light">
-                                <a href="food.html" class="dropdown-item">Food</a>
-                                <a href="education.html" class="dropdown-item">Educational Materials</a>
-                                <a href="clothing.html" class="dropdown-item">Clothing</a>
-                                <a href="electronics.html" class="dropdown-item">Electronics</a>
+                                <a href="listing.html" class="dropdown-item">All</a>
+                                <a href="listing.html?category=Food" class="dropdown-item">Food</a>
+                                <a href="listing.html?category=Education" class="dropdown-item">Educational Materials</a>
+                                <a href="listing.html?category=Clothing" class="dropdown-item">Clothing</a>
+                                <a href="listing.html?category=Electronics" class="dropdown-item">Electronics</a>
                             </div>
                         </div>
                         <a href="service.html" class="nav-item nav-link">Community</a>
@@ -65,7 +67,8 @@
                         <a href="contact.html" class="nav-item nav-link">Contact</a>
                     </div>
                     <button class="btn-search btn btn-primary btn-md-square me-4 rounded-circle d-none d-lg-inline-flex" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fas fa-search"></i></button>
-                    <a href="" class="btn btn-primary py-2 px-4 d-none d-xl-inline-block rounded-pill">Login</a>
+                    <a id="profileicon"></a>
+                    <a href="" class="btn btn-primary py-2 px-4 d-none d-xl-inline-block rounded-pill" id="loginandout"></a>
                 </div>
             </nav>
         </div>
@@ -101,7 +104,7 @@
                         <small class="d-inline-block fw-bold text-dark text-uppercase bg-light border border-primary rounded-pill px-4 py-1 mb-4 animated bounceInDown">Welcome to ReBirth</small>
                         <h1 class="display-1 mb-4 animated bounceInDown"> <span class="text-primary">Re</span>Birth: Reimagining Giving, Redifining Generosity</h1>
                         <a href="" class="btn btn-primary border-0 rounded-pill py-3 px-4 px-md-5 me-4 animated bounceInLeft justify-content-center ">Organisation Login</a>
-                        <a href="" class="btn btn-primary border-0 rounded-pill py-3 px-4 px-md-5 animated bounceInLeft justify-content-center ">Giver Login</a>
+                        <a href="login.html" class="btn btn-primary border-0 rounded-pill py-3 px-4 px-md-5 animated bounceInLeft justify-content-center ">Giver Login</a>
                     </div>
 
                 </div>
@@ -343,7 +346,7 @@
                 <div class="owl-carousel testimonial-carousel testimonial-carousel-2 wow bounceInUp" data-wow-delay="0.3s">
                     <div class="testimonial-item rounded bg-light">
                         <div class="d-flex mb-3">
-                            <
+                            
                             <div class="position-absolute" style="top: 15px; right: 20px;">
                                 <i class="fa fa-quote-right fa-2x"></i>
                             </div>
@@ -493,5 +496,50 @@
 
         <!-- Template Javascript -->
         <script src="js/main.js"></script>
+
+        <script>
+            let usercheck_url = "userlog.php"
+
+            axios.get(usercheck_url) //FIRST AXIOS START  --CHECK FOR USERTYPE & USERID
+            .then(response => {
+
+            var user_id = response.data[0].userid;
+            var user_type = response.data[0].usertype;
+            console.log(response.data)
+            
+            if (user_id=='' || user_id == undefined || user_id== null) {
+                var loginandout = document.getElementById("loginandout");
+                var loginandout_textnode = document.createTextNode("Login");
+                loginandout.appendChild(loginandout_textnode);
+                loginandout.href = "user_login.html";
+            }
+            else {
+                var loginandout = document.getElementById("loginandout");
+                var loginandout_textnode = document.createTextNode("Logout");
+                loginandout.appendChild(loginandout_textnode);
+                
+                var profileicon = document.getElementById("profileicon");
+                var profileimg = document.createElement("IMG");
+                profileimg.setAttribute("src","default_pictures/profile.png");
+
+                var profilelink = document.createElement("a");
+                profilelink.setAttribute("href","analytics.html")
+
+            
+                if (user_type == "organization") {
+                    var org_link = "organization.html?Organization=".concat(user_id);
+                    profilelink.setAttribute("href",org_link);
+                }
+
+                profilelink.appendChild(profileimg);
+
+                profileicon.appendChild(profilelink);
+                
+                loginandout.href = "logout.php"; 
+            }}).catch(error => {     
+                    console.log(error.message)
+                })
+            
+        </script>
     </body>
 </html>

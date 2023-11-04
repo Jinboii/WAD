@@ -27,6 +27,8 @@
 
         <!-- Template Stylesheet -->
         <link href="css/style.css" rel="stylesheet">
+        <!-- Vue.js CDN -->
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
     </head>
 
     <body>
@@ -66,7 +68,7 @@
                             <a href="contact.html" class="nav-item nav-link">Contact</a>
                         </div>
                         <button class="btn-search btn btn-primary btn-md-square me-4 rounded-circle d-none d-lg-inline-flex" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fas fa-search"></i></button>
-                        <a href="" id="toploginbutton" class="btn btn-primary py-2 px-4 d-none d-xl-inline-block rounded-pill">Login</a>
+                        <a href="" class="btn btn-primary py-2 px-4 d-none d-xl-inline-block rounded-pill">Login</a>
                     </div>
                 </nav>
             </div>
@@ -95,8 +97,8 @@
 
 
 
-<!-- Book Us Start -->
-<div class="container-fluid contact py-6 wow bounceInUp" data-wow-delay="0.1s">
+     <!-- Book Us Start -->
+<div id="app" class="container-fluid contact py-6 wow bounceInUp" data-wow-delay="0.1s">
     <div class="container">
         <div class="row g-0">
             <div class="col-1">
@@ -109,14 +111,14 @@
                     </div>
                     <div class="row g-4 form">
                         <div class="col-lg-4 col-md-6">
-                            <input type="name" class="form-control border-primary p-2" placeholder="Enter Your  Name">
+                            <input type="text" class="form-control border-primary p-2" id="username" placeholder="Enter Your Username" v-model="username">
                         </div>
                        
                         <div class="col-lg-4 col-md-6">
-                            <input type="email" class="form-control border-primary p-2" placeholder="Enter Your Email">
+                            <input type="password" class="form-control border-primary p-2" id="password" placeholder="Enter Your Password" v-model="password">
                         </div>
                         <div class="col-12 text-center">
-                            <button type="submit" class="btn btn-primary px-5 py-3 rounded-pill">Login</button>
+                            <button type="button" class="btn btn-primary px-5 py-3 rounded-pill" @click="login">Login</button>
                         </div>
                     </div>
                 </div>
@@ -127,6 +129,10 @@
     </div>
 </div>
 <!-- Book Us End -->
+
+        
+
+
 
 
 
@@ -200,21 +206,44 @@
         <!-- Template Javascript -->
         <script src="js/main.js"></script>
         <script>
-            var current_link = window.location.href;
-            if (current_link.search("login")>-1) {
-                document.getElementById("toploginbutton").setAttribute("class","d-none");
-            }
-
-            if (current_link.search("success")>-1) {
-                alert("Successful Logout!")
-            }
-
-
-    
-
-
-
+            new Vue({
+                el: '#app', // This should match the ID of your form container
+                data: {
+                    username: '',
+                    password: ''
+                },
+                methods: {
+                    login() {
+                        const loginData = {
+                            username: this.username,
+                            password: this.password
+                        };
+        
+                        fetch('process_login.php', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(loginData)
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            alert(data.message);
+                            if (data.success) {
+                                // Handle login success, e.g., redirect to another page
+                                window.location.href = '/dashboard.html'; // Change to your success page
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert('There was an error processing your login. Please try again.');
+                        });
+                    }
+                }
+            });
         </script>
+        
+        
     </body>
 </html>
  
