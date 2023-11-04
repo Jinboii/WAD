@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
+    <head> 
         <meta charset="utf-8">
         <title>ReBirth - Give Life To Your Items</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -166,11 +166,13 @@
                     //#create button
                     var anchorlink = document.createElement("a");
                     anchorlink.setAttribute("href","upload.html");
+                    anchorlink.classList.add("btn", "py-2","py-3","btn-primary", "navbar-toggler");
                     var createbutton = document.createElement("button");
                     var createbuttontext = document.createTextNode("Create");
                     createbutton.appendChild(createbuttontext);
                     anchorlink.appendChild(createbutton)
                     document.getElementById("org_buttons").appendChild(anchorlink);
+
 
                     document.getElementById("archive").innerHTML = "<h2>Past listings</h2>";
 

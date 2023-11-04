@@ -7,7 +7,7 @@
     <title>ReBirth - Give Life To Your Items</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
-    <meta content="" name="description">
+    <meta content="" name="description"> 
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -215,24 +215,21 @@
 
                 const registrationDataJSON = JSON.stringify(registrationData);
 
-                // Sending the JSON data to process_register.php
                 fetch('process_register.php', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
                     body: registrationDataJSON
-                })
-                .then(response => response.json())
-                .then(data => {
-                    // Assuming your PHP sends back a JSON response with a 'message' field
-                    alert(data.message);
+                }).then(function(response){
+                    return response.json();
+                }).then(function(data){
+                    console.log(data);
                 })
                 .catch(error => {
                     console.error('Error:', error);
                     alert('There was an error processing your registration. Please try again.');
                 });
-
                 console.log(registrationData);
                 alert('Registration successful!');
                 this.username = '';
@@ -241,8 +238,8 @@
                 this.confirmPassword = '';
                 this.role = 'user';
             }
-        }
-    });
+        }})
+    // });
 </script>
 
 </body>
