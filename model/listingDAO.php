@@ -133,9 +133,4 @@ class ListingDAO {
         return $isOk;
     }
 }
-
-
-
-
-
 ?>

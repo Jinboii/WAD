@@ -1,4 +1,5 @@
 <?php 
+    //user class
     class User{
         private $username;
         private $email;

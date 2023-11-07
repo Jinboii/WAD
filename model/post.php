@@ -1,4 +1,5 @@
 <?php
+//post class
 class Post{
     private $userid;
     private $postid;
@@ -23,10 +24,4 @@ class Post{
         return $this->post_title;
     }
 }
-?>
-
-
-
-
-
 ?>

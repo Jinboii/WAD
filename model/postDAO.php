@@ -1,7 +1,7 @@
 <?php
 
 class PostDAO {
-
+    //retrieve all post
     public function retrieveAll() {
         $connMgr = new ConnectionManager();          
         $conn = $connMgr->getConnection();
@@ -21,7 +21,7 @@ class PostDAO {
 
         return $result;
     }
-    
+    //add a post
     public function add($post) {
         $connMgr = new ConnectionManager();       
         $conn = $connMgr->getConnection();
@@ -47,6 +47,28 @@ class PostDAO {
         return $isAddOK;
     }
 
+    //select a specific post
+    public function SelectPost($postid){
+        
+        $conn = new ConnectionManager();
+        $pdo = $conn->getConnection();
+        $sql = "SELECT * FROM post WHERE postid = :postid";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':postid', $postid, PDO::PARAM_STR);
+        $stmt->execute();
+        $result = [];
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        if ($row = $stmt->fetch()) {
+            $result[] = new Post($row['userid'], $row['postid']
+                                , $row['posttitle'], $row['postcontent']);
+        }
+        
+        $stmt = null;
+        $pdo = null;
+        return $result;
+    }
+
+    //edit a post
     public function EditPost($postid, $posttitle, $postcontent) {
         $connMgr = new ConnectionManager();
         $conn = $connMgr->getConnection();
@@ -63,7 +85,7 @@ class PostDAO {
 
         return $isEditOK;
     }
-
+    //delete a post
     public function DeletePost($postid) {
         $connMgr = new ConnectionManager();
         $conn = $connMgr->getConnection();
@@ -78,6 +100,5 @@ class PostDAO {
 
         return $isDeleteOK;
     }
-
 }
 ?>

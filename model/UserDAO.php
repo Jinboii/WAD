@@ -1,4 +1,5 @@
 <?php
+    
     class UserDAO{
 
         # Add a new user to the database

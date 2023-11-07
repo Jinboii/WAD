@@ -46,5 +46,5 @@ class Listing {
     public function getDonater() {
         return $this->donater;
     }
-}
+    }
 ?>
