@@ -8,4 +8,4 @@ Rebirth hopes to solve the issue of finding various places to donate/ sell diffe
 Download the source code and save in onto your desktop. All paths in the code are relative, hence the location of the code will not affect the performance of the application. Do run create.sql first to set up the databases.
 
 # Running the application
-Use localhost to access the local code
+Use localhost to access the local code.
