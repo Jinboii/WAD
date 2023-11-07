@@ -136,14 +136,14 @@
                             </div>';
         }
         else {
-            echo "<h3>Update was NOT successful!</h3>";
+            
             
             echo ' <div class="container-fluid contact py-6 wow bounceInUp" data-wow-delay="0.1s">
             <div class="container">
                 <div class="p-5 bg-light rounded contact-form">
                     <div class="row g-4">
                         <div class="col-12 mx-auto text-center">
-                            <h1 class="display-5 mb-0">Upload was unsuccessful!</h1>
+                            <h1 class="display-5 mb-0">Update was unsuccessful!</h1>
                         </div>
                         
                         <div class="text-center">
