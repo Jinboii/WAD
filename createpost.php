@@ -1,6 +1,7 @@
 <?php
+    session_start();
     require_once "autoload.php";
-    $userid = 1234; 
+    $userid = $_SESSION["userid"];
     $postid = $userid . date("mdhis");
     $posttitle = $_POST["posttitle"];
     $postcontent = $_POST["postcontent"];
@@ -8,6 +9,7 @@
     $dao = new PostDAO(); 
     $insertok = $dao->add($post);
     if ($insertok) {
+  
         echo "Post Added <br> 
         <a href='blog.html'><button>Click here to return to posts page</button></a>";
     } else {

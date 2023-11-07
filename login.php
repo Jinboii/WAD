@@ -1,7 +1,8 @@
 <?php
 session_start();
 
-require_once 'loginDAO.php';
+header("Access-Control-Allow-Origin: *");
+require_once 'autoload.php';
 
 // Assume login.html has a form that submits data to this script via POST
 if (isset($_POST['username']) && isset($_POST['password'])) {
