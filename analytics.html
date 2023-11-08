@@ -54,18 +54,19 @@
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Listings</a>
                                 <div class="dropdown-menu bg-light">
-                                    <a href="food.html" class="dropdown-item">Food</a>
-                                    <a href="education.html" class="dropdown-item">Educational Materials</a>
-                                    <a href="clothing.html" class="dropdown-item">Clothing</a>
-                                    <a href="electronics.html" class="dropdown-item">Electronics</a>
+                                    <a href="listing.html" class="dropdown-item">All</a>
+                                    <a href="listing.html?category=Food" class="dropdown-item">Food</a>
+                                    <a href="listing.html?category=Education" class="dropdown-item">Educational Materials</a>
+                                    <a href="listing.html?category=Clothing" class="dropdown-item">Clothing</a>
+                                    <a href="listing.html?category=Electronics" class="dropdown-item">Electronics</a>
                                 </div>
                             </div>
-                            <a href="service.html" class="nav-item nav-link">Community</a>
+                            <a href="blog.html" class="nav-item nav-link">Community</a>
                         
                             <a href="contact.html" class="nav-item nav-link">Contact</a>
                         </div>
                         <button class="btn-search btn btn-primary btn-md-square me-4 rounded-circle d-none d-lg-inline-flex" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fas fa-search"></i></button>
-                        <a href="" class="btn btn-primary py-2 px-4 d-none d-xl-inline-block rounded-pill">Login</a>
+                        <a href="logout.php" id="loginandout" class="btn btn-primary py-2 px-4 d-none d-xl-inline-block rounded-pill"></a>
                     </div>
                 </nav>
             </div>
@@ -148,6 +149,14 @@
 
 
 
+
+
+                var loginandout = document.getElementById("loginandout");
+                var loginandout_textnode = document.createTextNode("Logout");
+                loginandout.appendChild(loginandout_textnode);
+
+
+
                 let api_endpoint_url = "analytics.php"
                 let para = {userid : user_id, 
                             usertype : user_type} ; 
@@ -219,24 +228,13 @@
                 })
                 .catch(error => {
                     console.log(error.message)
-                })
-
-                
+                })  
                 
             })
             .catch(error => {
                 console.log(error.message)
             })
-
-
-
-
         }
-
-
-
-
-
     </script>
     </body>
 </html>
