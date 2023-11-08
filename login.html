@@ -219,48 +219,41 @@
             }
 
 
-
-
-
-
-
-
-
-            // new Vue({
-            //     el: '#app', // This should match the ID of your form container
-            //     data: {
-            //         username: '',
-            //         password: ''
-            //     },
-            //     methods: {
-            //         login() {
-            //             const loginData = {
-            //                 username: this.username,
-            //                 password: this.password
-            //             };
+            new Vue({
+                el: '#app', // This should match the ID of your form container
+                data: {
+                    username: '',
+                    password: ''
+                },
+                methods: {
+                    login() {
+                        const loginData = {
+                            username: this.username,
+                            password: this.password
+                        };
         
-            //             fetch('process_login.php', {
-            //                 method: 'POST',
-            //                 headers: {
-            //                     'Content-Type': 'application/json'
-            //                 },
-            //                 body: JSON.stringify(loginData)
-            //             })
-            //             .then(response => response.json())
-            //             .then(data => {
-            //                 alert(data.message);
-            //                 if (data.success) {
-            //                     // Handle login success, e.g., redirect to another page
-            //                     window.location.href = 'index.html'; // Change to your success page
-            //                 }
-            //             })
-            //             .catch(error => {
-            //                 console.error('Error:', error);
-            //                 alert('There was an error processing your login. Please try again.');
-            //             });
-            //         }
-            //     }
-            // });
+                        fetch('process_login.php', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(loginData)
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            alert(data.message);
+                            if (data.success) {
+                                // Handle login success, e.g., redirect to another page
+                                window.location.href = 'index.html'; // Change to your success page
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert('There was an error processing your login. Please try again.');
+                        });
+                    }
+                }
+            });
         </script>
      
         

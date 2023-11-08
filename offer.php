@@ -1,3 +1,61 @@
+<?php
+    header("Access-Control-Allow-Origin: *");
+    require_once 'autoload.php';
+    
+    $listing_id = $_GET['listing_id'];
+    $donater = $_GET['donater_id'];
+    
+    $dao = new listingDAO(); 
+    $status = false;
+    $result = "";
+    
+    if ( isset($listing_id)){
+
+        $status = $dao->Updateoffer($listing_id,$donater);
+        
+        if ( $status ) {
+        
+
+            $result.= ' <div class="container-fluid contact py-6 wow bounceInUp" data-wow-delay="0.1s">
+                <div class="container">
+                    <div class="p-5 bg-light rounded contact-form">
+                        <div class="row g-4">
+                            <div class="col-12 mx-auto text-center">
+                                <h1 class="display-5 mb-0">Offer was successful!</h1>
+                            </div>
+                            
+                            <div class="text-center">
+                                        <a href="listing.html"><button type="submit" class="w-50 btn btn-primary border-primary bg-primary rounded-pill">Return to listing page</button><a href="listing.html">
+                                    
+                                    </div>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>';
+        }
+        else {
+            
+
+            $result.= ' <div class="container-fluid contact py-6 wow bounceInUp" data-wow-delay="0.1s">
+            <div class="container">
+                <div class="p-5 bg-light rounded contact-form">
+                    <div class="row g-4">
+                        <div class="col-12 mx-auto text-center">
+                            <h1 class="display-5 mb-0">Offer was unsuccessful!</h1>
+                        </div>
+                        
+                        <div class="text-center">
+                                    <a href="listing.html"><button type="submit" class="w-50 btn btn-primary border-primary bg-primary rounded-pill">Return to listing page</button><a href="listing.html">
+                                
+                                </div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>';
+        }
+    }
+?>
+
 <!DOCTYPE html>
 
 <html lang="en">
@@ -93,60 +151,8 @@
     </div>
 </div>
 <!-- Modal Search End -->
-
-<?php
-    header("Access-Control-Allow-Origin: *");
-    require_once 'autoload.php';
-    
-    $listing_id = $_GET['listing_id'];
-    $donater = $_GET['donater_id'];
-    
-    $dao = new listingDAO(); 
-    $status = false;
-    
-    if ( isset($listing_id)){
-
-        $status = $dao->Updateoffer($listing_id,$donater);
-        
-        if ( $status ) {
-        
-
-            ' <div class="container-fluid contact py-6 wow bounceInUp" data-wow-delay="0.1s">
-                <div class="container">
-                    <div class="p-5 bg-light rounded contact-form">
-                        <div class="row g-4">
-                            <div class="col-12 mx-auto text-center">
-                                <h1 class="display-5 mb-0">Offer was successful!</h1>
-                            </div>
-                            
-                            <div class="text-center">
-                                        <a href="listing.html"><button type="submit" class="w-50 btn btn-primary border-primary bg-primary rounded-pill">Return to listing page</button><a href="listing.html">
-                                    
-                                    </div>
-                                    </div>
-                                    </div>
-                                </div>
-                            </div>';
-        }
-        else {
-            
-
-            echo ' <div class="container-fluid contact py-6 wow bounceInUp" data-wow-delay="0.1s">
-            <div class="container">
-                <div class="p-5 bg-light rounded contact-form">
-                    <div class="row g-4">
-                        <div class="col-12 mx-auto text-center">
-                            <h1 class="display-5 mb-0">Offer was unsuccessful!</h1>
-                        </div>
-                        
-                        <div class="text-center">
-                                    <a href="listing.html"><button type="submit" class="w-50 btn btn-primary border-primary bg-primary rounded-pill">Return to listing page</button><a href="listing.html">
-                                
-                                </div>
-                                </div>
-                                </div>
-                            </div>
-                        </div>';
-        }
-    }
-?>
+<body>
+    <?php
+    echo $result;
+    ?>
+</body>

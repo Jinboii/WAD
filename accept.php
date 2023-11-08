@@ -1,3 +1,75 @@
+<?php
+    header("Access-Control-Allow-Origin: *");
+    require_once 'autoload.php';
+    
+    $listing_id = $_GET["listing_id"];
+
+    #add listing into archive table
+    $dao = new listingDAO(); 
+        
+    $listings = $dao -> SelectListing($listing_id);
+
+    $processed_data = [];
+        
+    foreach ($listings as $listing) {
+        $listing_id = $listing->getlistingID();
+        $title = $listing->getTitle();
+        $description = $listing->getDescription();
+        $category = $listing->getCategory();
+        $image = $listing->getImage();
+        $organization = $listing->getOrganization();
+        $donater = $listing->getDonater();
+        
+        $archive = new archive($listing_id, $title, $description, $category, $image, $organization, $donater);
+
+        $dao2 = new archiveDAO(); 
+
+        $insertok = $dao2 -> add($archive);
+
+        #delete listing from listings table
+        $status = $dao->DeleteListing($listing_id);
+        $result = "";
+        #message status on the archiving of completed listing
+        if ($insertok && $status){
+            
+            $result.= ' <div class="container-fluid contact py-6 wow bounceInUp" data-wow-delay="0.1s">
+            <div class="container">
+                <div class="p-5 bg-light rounded contact-form">
+                    <div class="row g-4">
+                        <div class="col-12 mx-auto text-center">
+                            <h1 class="display-5 mb-0">Offer accepted!</h1>
+                        </div>
+                        
+                        <div class="text-center">
+                                    <a href="listing.html"><button type="submit" class="w-50 btn btn-primary border-primary bg-primary rounded-pill">Return to listings page</button><a href="listing.html">
+                                
+                                </div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>';
+        }else{
+           
+            $result.= ' <div class="container-fluid contact py-6 wow bounceInUp" data-wow-delay="0.1s">
+            <div class="container">
+                <div class="p-5 bg-light rounded contact-form">
+                    <div class="row g-4">
+                        <div class="col-12 mx-auto text-center">
+                            <h1 class="display-5 mb-0">An error occured. Please contact admin for assistance</h1>
+                        </div>
+                        
+                        <div class="text-center">
+                                    <a href="listing.html"><button type="submit" class="w-50 btn btn-primary border-primary bg-primary rounded-pill">Return to listings page</button><a href="listing.html">
+                                
+                                </div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>';
+        }
+    }
+?>
+
 <!DOCTYPE html>
 
 <html lang="en">
@@ -93,78 +165,8 @@
     </div>
 </div>
 <!-- Modal Search End -->
-
-<?php
-    header("Access-Control-Allow-Origin: *");
-    require_once 'autoload.php';
-    
-    $listing_id = $_GET["listing_id"];
-
-    #add listing into archive table
-    $dao = new listingDAO(); 
-        
-    $listings = $dao -> SelectListing($listing_id);
-
-    $processed_data = [];
-        
-    foreach ($listings as $listing) {
-        $listing_id = $listing->getlistingID();
-        $title = $listing->getTitle();
-        $description = $listing->getDescription();
-        $category = $listing->getCategory();
-        $image = $listing->getImage();
-        $organization = $listing->getOrganization();
-        $donater = $listing->getDonater();
-        
-        $archive = new archive($listing_id, $title, $description, $category, $image, $organization, $donater);
-
-        $dao2 = new archiveDAO(); 
-
-        $insertok = $dao2 -> add($archive);
-
-        #delete listing from listings table
-        $status = $dao->DeleteListing($listing_id);
-
-        #message status on the archiving of completed listing
-        if ($insertok && $status){
-            
-
-            echo ' <div class="container-fluid contact py-6 wow bounceInUp" data-wow-delay="0.1s">
-            <div class="container">
-                <div class="p-5 bg-light rounded contact-form">
-                    <div class="row g-4">
-                        <div class="col-12 mx-auto text-center">
-                            <h1 class="display-5 mb-0">Offer accepted!</h1>
-                        </div>
-                        
-                        <div class="text-center">
-                                    <a href="listing.html"><button type="submit" class="w-50 btn btn-primary border-primary bg-primary rounded-pill">Return to listings page</button><a href="listing.html">
-                                
-                                </div>
-                                </div>
-                                </div>
-                            </div>
-                        </div>';
-        }else{
-            echo "An error occured. Please contact admin for assistance";
-            echo ' <div class="container-fluid contact py-6 wow bounceInUp" data-wow-delay="0.1s">
-            <div class="container">
-                <div class="p-5 bg-light rounded contact-form">
-                    <div class="row g-4">
-                        <div class="col-12 mx-auto text-center">
-                            <h1 class="display-5 mb-0">An error occured. Please contact admin for assistance</h1>
-                        </div>
-                        
-                        <div class="text-center">
-                                    <a href="listing.html"><button type="submit" class="w-50 btn btn-primary border-primary bg-primary rounded-pill">Return to listings page</button><a href="listing.html">
-                                
-                                </div>
-                                </div>
-                                </div>
-                            </div>
-                        </div>';
-        }
-    }
-
-
-?>
+<body>
+    <?php
+    echo $result;
+    ?>
+</body>

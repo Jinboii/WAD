@@ -105,18 +105,18 @@
 
                     
                     <div class="col-12 mx-auto">
-                        <form id="form1" action="create.php" method="post" enctype="multipart/form-data">
+                        <form id="form" action="create.php" method="post" enctype="multipart/form-data">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label for="title" class="form-label text-dark" id="title">Title:</label>
-                                        <input type="text" id="title" name="title" class="form-control">
+                                        <label for="title" class="form-label text-dark">Title:</label>
+                                        <input required type="text" id="title" name="title" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label for="description" class="form-label text-dark text-black" id="description">Description:</label>
-                                        <input type="text" id="description" name="description" class="form-control">
+                                        <label for="description" class="form-label text-dark text-black">Description:</label>
+                                        <input required type="text" id="description" name="description" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -150,13 +150,14 @@
     
         <script>
             var html_link =  window.location.href
-
+            
             //# Determine if this is a new listing creation or update
             if (html_link.search("listing_id")>0) {
                 
                 var listing_id_position = html_link.search("listing_id") + 11;
                 var end_of_listing_id = html_link.search("&upload");
                 var listing_id = html_link.substring(listing_id_position,end_of_listing_id);
+
 
                 document.getElementById("listingid").innerHTML = 
                 `<input type="text" name="listingid" value=${listing_id}>`;
@@ -166,8 +167,7 @@
             
                 axios.get(getlisitng_url, {params:para}) 
                 .then(response => {
-
-                    var listing = response.data[0]
+                    var listing = response.data[0];
                     var title = listing.title;
                     var description = listing.description;
                     var category = listing.category;

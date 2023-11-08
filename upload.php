@@ -1,3 +1,89 @@
+<?php
+
+$target_dir = "uploads/";
+$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+
+$uploadOk = 1;
+$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+
+$results = "";
+
+// Check if image file is a actual image or fake image
+if(isset($_POST["submit"])) {
+
+  if (empty($_FILES["fileToUpload"]["name"])) {
+    $results .= '<div class="col-12 mx-auto text-center">
+                    <h1 class="display-5 mb-0">Please upload a photo!</h1>
+                </div>';
+  }
+
+  else {
+  $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+  if($check == false) {
+    $results .= '<div class="col-12 mx-auto text-center">
+                    <h1 class="display-5 mb-0">File is not an image!</h1>
+                </div>';
+    $uploadOk = 0;}
+
+
+  // Check file size
+  if ($_FILES["fileToUpload"]["size"] > 500000) {
+    $results .=  '<div class="col-12 mx-auto text-center">
+                    <h1 class="display-5 mb-0">Sorry, your file is too large!</h1>
+                </div>';
+    $uploadOk = 0;
+  }
+
+  // Allow certain file formats
+  if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+  && $imageFileType != "gif" ) {
+    $results .= '<div class="col-12 mx-auto text-center">
+                    <h1 class="display-5 mb-0">Sorry, only JPG, JPEG, PNG & GIF files are allowed!</h1>
+                </div>';
+    $uploadOk = 0;
+  }
+
+  // Check if $uploadOk is set to 0 by an error
+  if ($uploadOk == 0) {
+    $results .= '<div class="col-12 mx-auto text-center">
+                    <h1 class="display-5 mb-0">Sorry, your file was not uploaded.</h1>
+                </div>';
+
+  // if everything is ok, try to upload file
+  } else {
+    $ext = explode('.',$_FILES["fileToUpload"]['name']);
+    $extension = $ext[1];
+    $newname = $ext[0].'_'.time();
+    $full_local_path = $target_dir.$newname.'.'.$extension ;
+
+    if (isset($_GET["listingid"])){
+      $listing_id = $_GET["listingid"];
+
+      if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $full_local_path)) {
+        header('Location: create.html?listing_id='.$listing_id.'&upload='.$newname);
+      } else {
+        $results .= 
+        '<div class="col-12 mx-auto text-center">
+            <h1 class="display-5 mb-0">Sorry, there was an error uploading your file.</h1>
+        </div>';
+      }
+    }
+
+    else {
+      if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $full_local_path)) {
+        header('Location: create.html?upload='.$newname);
+      } else {
+        $results .=
+        '<div class="col-12 mx-auto text-center">
+            <h1 class="display-5 mb-0">Sorry, there was an error uploading your file.</h1>
+        </div>';
+      }
+    }
+  }
+    }
+  }
+?>
+
 <!DOCTYPE html>
 
 <html lang="en">
@@ -93,183 +179,21 @@
     </div>
 </div>
 <!-- Modal Search End -->
-
-
-<?php
-header("Access-Control-Allow-Origin: *");
-$target_dir = "uploads/";
-$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
-
-$uploadOk = 1;
-$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-
-$results = "";
-
-// Check if image file is a actual image or fake image
-if(isset($_POST["submit"])) {
-
-  if (empty($_FILES["fileToUpload"]["name"])) {
-    $results .= ' <div class="container-fluid contact py-6 wow bounceInUp" data-wow-delay="0.1s">
-                <div class="container">
-                    <div class="p-5 bg-light rounded contact-form">
-                        <div class="row g-4">
-                            <div class="col-12 mx-auto text-center">
-                                <h1 class="display-5 mb-0">Please upload a photo!</h1>
-                            </div>
-                            
-                            <div class="text-center">
-                                        <a href="upload.html"><button type="submit" class="w-50 btn btn-primary border-primary bg-primary rounded-pill">Return to upload page</button><a href="upload.html">
-                                    
-                                    </div>
-                                    </div>
-                                    </div>
-                                </div>
-                            </div>';
-  }
-
-  else {
-  $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
-  if($check == false) {
-    $results .= ' <div class="container-fluid contact py-6 wow bounceInUp" data-wow-delay="0.1s">
-                <div class="container">
-                    <div class="p-5 bg-light rounded contact-form">
-                        <div class="row g-4">
-                            <div class="col-12 mx-auto text-center">
-                                <h1 class="display-5 mb-0">File is not an image!</h1>
-                            </div>
-                            
-                            <div class="text-center">
-                                        <a href="upload.html"><button type="submit" class="w-50 btn btn-primary border-primary bg-primary rounded-pill">Return to upload page</button><a href="upload.html">
-                                    
-                                    </div>
-                                    </div>
-                                    </div>
-                                </div>
-                            </div>';
-    $uploadOk = 0;}
-
-
-  // Check file size
-  if ($_FILES["fileToUpload"]["size"] > 500000) {
-    $results .=  ' <div class="container-fluid contact py-6 wow bounceInUp" data-wow-delay="0.1s">
-                <div class="container">
-                    <div class="p-5 bg-light rounded contact-form">
-                        <div class="row g-4">
-                            <div class="col-12 mx-auto text-center">
-                                <h1 class="display-5 mb-0">Sorry, your file is too large!</h1>
-                            </div>
-                            
-                            <div class="text-center">
-                                        <a href="upload.html"><button type="submit" class="w-50 btn btn-primary border-primary bg-primary rounded-pill">Return to upload page</button><a href="upload.html">
-                                    
-                                    </div>
-                                    </div>
-                                    </div>
-                                </div>
-                            </div>';
-    $uploadOk = 0;
-  }
-
-  // Allow certain file formats
-  if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-  && $imageFileType != "gif" ) {
-    $results .= 
-    ' <div class="container-fluid contact py-6 wow bounceInUp" data-wow-delay="0.1s">
-                <div class="container">
-                    <div class="p-5 bg-light rounded contact-form">
-                        <div class="row g-4">
-                            <div class="col-12 mx-auto text-center">
-                                <h1 class="display-5 mb-0">Sorry, only JPG, JPEG, PNG & GIF files are allowed!</h1>
-                            </div>
-                            
-                            <div class="text-center">
-                                        <a href="upload.html"><button type="submit" class="w-50 btn btn-primary border-primary bg-primary rounded-pill">Return to upload page</button><a href="upload.html">
-                                    
-                                    </div>
-                                    </div>
-                                    </div>
-                                </div>
-                            </div>';
-    $uploadOk = 0;
-  }
-
-  // Check if $uploadOk is set to 0 by an error
-  if ($uploadOk == 0) {
-    $results .= 
-    ' <div class="container-fluid contact py-6 wow bounceInUp" data-wow-delay="0.1s">
-                <div class="container">
-                    <div class="p-5 bg-light rounded contact-form">
-                        <div class="row g-4">
-                            <div class="col-12 mx-auto text-center">
-                                <h1 class="display-5 mb-0">Sorry, your file was not uploaded.</h1>
-                            </div>
-                            
-                            <div class="text-center">
-                                        <a href="upload.html"><button type="submit" class="w-50 btn btn-primary border-primary bg-primary rounded-pill">Return to upload page</button><a href="upload.html">
-                                    
-                                    </div>
-                                    </div>
-                                    </div>
-                                </div>
-                            </div>';
-  // if everything is ok, try to upload file
-  } else {
-    $ext = explode('.',$_FILES["fileToUpload"]['name']);
-    $extension = $ext[1];
-    $newname = $ext[0].'_'.time();
-    $full_local_path = $target_dir.$newname.'.'.$extension ;
-
-    if (isset($_GET["listingid"])){
-      $listing_id = $_GET["listingid"];
-
-      if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $full_local_path)) {
-        header('Location: create.html?listing_id='.$listing_id.'&upload='.$newname);
-      } else {
-        $results .= 
-        ' <div class="container-fluid contact py-6 wow bounceInUp" data-wow-delay="0.1s">
-                <div class="container">
-                    <div class="p-5 bg-light rounded contact-form">
-                        <div class="row g-4">
-                            <div class="col-12 mx-auto text-center">
-                                <h1 class="display-5 mb-0">Sorry, there was an error uploading your file.</h1>
-                            </div>
-                            
-                            <div class="text-center">
-                                        <a href="upload.html"><button type="submit" class="w-50 btn btn-primary border-primary bg-primary rounded-pill">Return to upload page</button><a href="upload.html">
-                                    
-                                    </div>
-                                    </div>
-                                    </div>
-                                </div>
-                            </div>';
-      }
-    }
-
-    else {
-      if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $full_local_path)) {
-        header('Location: create.html?upload='.$newname);
-      } else {
-        $results .=
-        ' <div class="container-fluid contact py-6 wow bounceInUp" data-wow-delay="0.1s">
-                <div class="container">
-                    <div class="p-5 bg-light rounded contact-form">
-                        <div class="row g-4">
-                            <div class="col-12 mx-auto text-center">
-                                <h1 class="display-5 mb-0">Sorry, there was an error uploading your file.</h1>
-                            </div>
-                            
-                            <div class="text-center">
-                                        <a href="upload.html"><button type="submit" class="w-50 btn btn-primary border-primary bg-primary rounded-pill">Return to upload page</button><a href="upload.html">
-                                    
-                                    </div>
-                                    </div>
-                                    </div>
-                                </div>
-                            </div>';
-      }
-    }
-  }
-    }
-  }
-echo $results;
-?>
+<body><?php
+echo ' <div class="container-fluid contact py-6 wow bounceInUp" data-wow-delay="0.1s">
+<div class="container">
+    <div class="p-5 bg-light rounded contact-form">
+        <div class="row g-4">
+            <div class="col-12 mx-auto text-center"><ul>'
+                .$results.
+            '</div>
+            
+            <div class="text-center">
+                        <a href="upload.html"><button type="submit" class="w-50 btn btn-primary border-primary bg-primary rounded-pill">Return to upload page</button><a href="upload.html">
+                    
+                    </div>
+                    </div>
+                    </div>
+                </div>
+            </div>';
+?></body>

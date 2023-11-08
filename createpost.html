@@ -100,27 +100,18 @@
                         <div class="col-md-6 col-lg-7 mx-auto">
                             <form id="form" action="createpost.php" method="post" enctype="multipart/form-data">
                                 
-                                
-                                    <label for="posttitle" class="form-label text-dark">Title:</label>
-            <input type="text" class="w-100 form-control p-3 mb-4 border-primary bg-light" id="posttitle" name="posttitle" placeholder="Enter post title">
+                                <label for="posttitle" class="form-label text-dark">Title:</label>
+                                <input type="text" required class="w-100 form-control p-3 mb-4 border-primary bg-light" id="posttitle" name="posttitle" placeholder="Enter post title">
+                                <label for="postcontent" class="form-label text-dark">Content:</label>
+                                <textarea required class="w-100 form-control mb-4 p-3 border-primary bg-light" id="postcontent" name="postcontent" rows="5" 
+                                placeholder="Write your post content here..."></textarea>
+                                <span hidden id="postid"></span>
 
-
-    
-                <label for="postcontent" class="form-label text-dark">Content:</label>
-                <textarea class="w-100 form-control mb-4 p-3 border-primary bg-light" id="postcontent" name="postcontent" rows="5" 
-                placeholder="Write your post content here..."></textarea>
-            </div>
-            <span hidden id="postid"></span>
-            <button class="w-50
-             btn btn-primary form-control p-3 border-primary bg-primary rounded-pill mx-auto" type="submit">Submit Now</button>
-
-
-                        
-                                </form>
-
-
-                            </form>
                         </div>
+                        <button class="w-50
+                        btn btn-primary form-control p-3 border-primary bg-primary rounded-pill mx-auto" type="submit">Submit Now
+                        </button>
+                            </form>
                     </div>
                 </div>
             </div>
@@ -150,6 +141,7 @@
                     document.getElementById("posttitle").value = posttitle;
                     document.getElementById("postcontent").value = postcontent;
                     document.getElementById("form").action = "updatepost.php";
+
 
                 })
                 .catch(error => {

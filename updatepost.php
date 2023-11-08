@@ -1,3 +1,68 @@
+<?php
+    header("Access-Control-Allow-Origin: *");
+    require_once 'autoload.php';
+    
+    $postid = $_POST["postid"];
+
+
+    if (isset($_POST["posttitle"])) {
+        $posttitle = $_POST["posttitle"];
+    }
+
+    if (isset($_POST["postcontent"])) {
+        $postcontent = $_POST["postcontent"];
+    }
+    
+    $dao = new PostDAO(); 
+    $status = false;
+    $result = "";
+    
+    if ( isset($postid)){
+
+        $status = $dao->EditPost($postid, $posttitle, $postcontent);
+        
+        if ( $status ) {
+        
+
+            $result.= ' <div class="container-fluid contact py-6 wow bounceInUp" data-wow-delay="0.1s">
+                <div class="container">
+                    <div class="p-5 bg-light rounded contact-form">
+                        <div class="row g-4">
+                            <div class="col-12 mx-auto text-center">
+                                <h1 class="display-5 mb-0">Update was successful!</h1>
+                            </div>
+                            
+                            <div class="text-center">
+                                        <a href="blog.html"><button type="submit" class="w-50 btn btn-primary border-primary bg-primary rounded-pill">Return to blog page</button><a href="blog.html">
+                                    
+                                    </div>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>';
+        }
+        else {
+            
+            
+            $result.= ' <div class="container-fluid contact py-6 wow bounceInUp" data-wow-delay="0.1s">
+            <div class="container">
+                <div class="p-5 bg-light rounded contact-form">
+                    <div class="row g-4">
+                        <div class="col-12 mx-auto text-center">
+                            <h1 class="display-5 mb-0">Update was unsuccessful!</h1>
+                        </div>
+                        
+                        <div class="text-center">
+                                    <a href="blog.html"><button type="submit" class="w-50 btn btn-primary border-primary bg-primary rounded-pill">Return to blog page</button><a href="blog.html">
+                                
+                                </div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>';
+        }
+    }
+?>
 <!DOCTYPE html>
 
 <html lang="en">
@@ -92,68 +157,9 @@
         </div>
     </div>
 </div>
+<div>
+    <?php
+    echo $result;
+    ?>
+</div>
 <!-- Modal Search End -->
-<?php
-    header("Access-Control-Allow-Origin: *");
-    require_once 'autoload.php';
-    
-    $postid = $_POST["postid"];
-
-
-    if (isset($_POST["posttitle"])) {
-        $posttitle = $_POST["posttitle"];
-    }
-
-    if (isset($_POST["postcontent"])) {
-        $postcontent = $_POST["postcontent"];
-    }
-    
-    $dao = new PostDAO(); 
-    $status = false;
-    
-    if ( isset($postid)){
-
-        $status = $dao->EditPost($postid, $posttitle, $postcontent);
-        
-        if ( $status ) {
-        
-
-            echo ' <div class="container-fluid contact py-6 wow bounceInUp" data-wow-delay="0.1s">
-                <div class="container">
-                    <div class="p-5 bg-light rounded contact-form">
-                        <div class="row g-4">
-                            <div class="col-12 mx-auto text-center">
-                                <h1 class="display-5 mb-0">Update was successful!</h1>
-                            </div>
-                            
-                            <div class="text-center">
-                                        <a href="blog.html"><button type="submit" class="w-50 btn btn-primary border-primary bg-primary rounded-pill">Return to blog page</button><a href="blog.html">
-                                    
-                                    </div>
-                                    </div>
-                                    </div>
-                                </div>
-                            </div>';
-        }
-        else {
-            
-            
-            echo ' <div class="container-fluid contact py-6 wow bounceInUp" data-wow-delay="0.1s">
-            <div class="container">
-                <div class="p-5 bg-light rounded contact-form">
-                    <div class="row g-4">
-                        <div class="col-12 mx-auto text-center">
-                            <h1 class="display-5 mb-0">Update was unsuccessful!</h1>
-                        </div>
-                        
-                        <div class="text-center">
-                                    <a href="blog.html"><button type="submit" class="w-50 btn btn-primary border-primary bg-primary rounded-pill">Return to blog page</button><a href="blog.html">
-                                
-                                </div>
-                                </div>
-                                </div>
-                            </div>
-                        </div>';
-        }
-    }
-?>

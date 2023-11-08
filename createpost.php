@@ -1,3 +1,57 @@
+<?php
+    header("Access-Control-Allow-Origin: *");
+    session_start();
+    require_once "autoload.php";
+    $userid = $_SESSION["userid"];
+    $postid = $userid . date("mdhis");
+    $posttitle = $_POST["posttitle"];
+    $postcontent = $_POST["postcontent"];
+    $post = new Post($userid, $postid, $posttitle, $postcontent);
+    $dao = new PostDAO(); 
+    $insertok = $dao->add($post);
+
+    $result = "";
+    if ($insertok) {
+  
+        $result.= ' <div class="container-fluid contact py-6 wow bounceInUp" data-wow-delay="0.1s">
+                <div class="container">
+                    <div class="p-5 bg-light rounded contact-form">
+                        <div class="row g-4">
+                            <div class="col-12 mx-auto text-center">
+                                <h1 class="display-5 mb-0">Post Added!</h1>
+                            </div>
+                            
+                            <div class="text-center">
+                                        <a href="blog.html"><button type="submit" class="w-50 btn btn-primary border-primary bg-primary rounded-pill">Return to posts page</button><a href="lblog.html">
+                                    
+                                    </div>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>';
+                
+            }
+    else {
+
+
+        $result.= ' <div class="container-fluid contact py-6 wow bounceInUp" data-wow-delay="0.1s">
+                <div class="container">
+                    <div class="p-5 bg-light rounded contact-form">
+                        <div class="row g-4">
+                            <div class="col-12 mx-auto text-center">
+                                <h1 class="display-5 mb-0">Post is not added!</h1>
+                            </div>
+                            
+                            <div class="text-center">
+                                        <a href="blog.html"><button type="submit" class="w-50 btn btn-primary border-primary bg-primary rounded-pill">Return to posts page</button><a href="lblog.html">
+                                    
+                                    </div>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>';
+    }
+?>
 <!DOCTYPE html>
 
 <html lang="en">
@@ -92,60 +146,9 @@
         </div>
     </div>
 </div>
+<body>
+    <?php
+    echo $result;
+    ?>
+</body>
 <!-- Modal Search End -->
-<?php
-    session_start();
-    require_once "autoload.php";
-    $userid = $_SESSION["userid"];
-    $postid = $userid . date("mdhis");
-    $posttitle = $_POST["posttitle"];
-    $postcontent = $_POST["postcontent"];
-    $post = new Post($userid, $postid, $posttitle, $postcontent);
-    $dao = new PostDAO(); 
-    $insertok = $dao->add($post);
-
-    if ($insertok) {
-  
-        echo "Post Added <br> 
-        <a href='blog.html'><button>Click here to return to posts page</button></a>";
-
-        echo ' <div class="container-fluid contact py-6 wow bounceInUp" data-wow-delay="0.1s">
-                <div class="container">
-                    <div class="p-5 bg-light rounded contact-form">
-                        <div class="row g-4">
-                            <div class="col-12 mx-auto text-center">
-                                <h1 class="display-5 mb-0">Post Added!</h1>
-                            </div>
-                            
-                            <div class="text-center">
-                                        <a href="blog.html"><button type="submit" class="w-50 btn btn-primary border-primary bg-primary rounded-pill">Return to posts page</button><a href="lblog.html">
-                                    
-                                    </div>
-                                    </div>
-                                    </div>
-                                </div>
-                            </div>';
-                
-            }
-    else {
-        echo "Post is not added";
-
-        echo ' <div class="container-fluid contact py-6 wow bounceInUp" data-wow-delay="0.1s">
-                <div class="container">
-                    <div class="p-5 bg-light rounded contact-form">
-                        <div class="row g-4">
-                            <div class="col-12 mx-auto text-center">
-                                <h1 class="display-5 mb-0">Post is not added!</h1>
-                            </div>
-                            
-                            <div class="text-center">
-                                        <a href="blog.html"><button type="submit" class="w-50 btn btn-primary border-primary bg-primary rounded-pill">Return to posts page</button><a href="lblog.html">
-                                    
-                                    </div>
-                                    </div>
-                                    </div>
-                                </div>
-                            </div>';
-    }
-?>
-
