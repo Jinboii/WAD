@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head> 
+    <head>
         <meta charset="utf-8">
-        <title>Listings</title>
+        <title>ReBirth - Give Life To Your Items</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <meta content="" name="keywords">
         <meta content="" name="description">
@@ -61,7 +61,7 @@
                                     <a href="listing.html?category=Electronics" class="dropdown-item">Electronics</a>
                                 </div>
                             </div>
-                            <a href="blog.html" class="nav-item nav-link">Community</a>
+                            <a href="service.html" class="nav-item nav-link">Community</a>
                         
                             <a href="contact.html" class="nav-item nav-link">Contact</a>
                         </div>
@@ -96,6 +96,8 @@
 
 
         <!-- Hero Start -->
+    
+        
         <div class="container-fluid bg-custom py-6 my-4 mt-0">
             <div class="container text-center animated bounceInDown">
                 <h1 class="display-1 mb-3">All Listings</h1>
@@ -105,7 +107,7 @@
         <!-- Hero End -->
 
 
-
+        
 
         
         <div id="message"></div>
@@ -124,14 +126,13 @@
 
                 var user_id = response.data[0].userid;
                 var user_type = response.data[0].usertype;
-
-
                 
-                if (user_id=='' || user_id == undefined || user_id== null) {
+                
+                if (user_id=='') {
                     var loginandout = document.getElementById("loginandout");
                     var loginandout_textnode = document.createTextNode("Login");
                     loginandout.appendChild(loginandout_textnode);
-                    loginandout.href = "login.html";
+                    loginandout.href = "user_login.html";
                 }
                 else {
                     var loginandout = document.getElementById("loginandout");
@@ -141,6 +142,7 @@
                     var profileicon = document.getElementById("profileicon");
                     var profileimg = document.createElement("IMG");
                     profileimg.setAttribute("src","default_pictures/profile.png");
+                    profileimg.classList.add("blog-item");
             
                     var profilelink = document.createElement("a");
                     profilelink.setAttribute("href","analytics.html")
@@ -150,7 +152,7 @@
                         var org_link = "organization.html?Organization=".concat(user_id);
                         profilelink.setAttribute("href",org_link);
                     }
-
+                    
                     profilelink.appendChild(profileimg);
 
                     profileicon.appendChild(profilelink);
@@ -162,17 +164,15 @@
                     
                     var sortcat = document.getElementById("sortcat");
                     sortcat.setAttribute("class","d-none")
-
+                    
                     //#create button
                     var anchorlink = document.createElement("a");
                     anchorlink.setAttribute("href","upload.html");
-                    anchorlink.classList.add("btn", "py-2","py-3","btn-primary", "navbar-toggler");
                     var createbutton = document.createElement("button");
                     var createbuttontext = document.createTextNode("Create");
                     createbutton.appendChild(createbuttontext);
                     anchorlink.appendChild(createbutton)
                     document.getElementById("org_buttons").appendChild(anchorlink);
-
 
                     document.getElementById("archive").innerHTML = "<h2>Past listings</h2>";
 
@@ -186,7 +186,7 @@
                     .then(response => {
                     
                     var listing_list = response.data;
-                  
+                    
                     for (list in listing_list) {
                         var listing_id = listing_list[list].listing_id; 
                         var title = listing_list[list].title;
@@ -201,30 +201,38 @@
                         
                          
                          //#card
-                         var card = document.createElement("span");
-                         card.setAttribute("class","card col-4 h-30");
-                         //card.setAttribute("style","width:400px");
+                        
+                         var card = document.createElement("div");
+                         card.setAttribute("class", "col-md-6 col-lg-4 wow bounceInUp");
+                        card.setAttribute("data-wow-delay", "0.1s");
                          card.setAttribute("id",listing_id);
 
                          //#image
                          var cardimg = document.createElement("IMG");
                          cardimg.setAttribute("src",img_link);
-                         cardimg.setAttribute("class","img-fluid");
+                         cardimg.setAttribute("class","img-thumbnail");
+                         cardimg.setAttribute("style","width: 420px; height: 420px; object-fit: cover");
+                         cardimg.setAttribute("alt", "");
                          card.appendChild(cardimg);
+
+                    
 
                          //#card-body
                          var cardbody = document.createElement("div");
-                         cardbody.setAttribute("class","card-body");
+                         cardbody.setAttribute("class","card-text mx-4 d-flex rounded bg-light");
+                         
 
                          //#title
                          var cardtitle = document.createElement("h4");
-                         cardtitle.setAttribute("class","card-title");
+                         cardtitle.setAttribute("class","card-title mx-4 d-flex rounded bg-light");
                          var ctitle = document.createTextNode(title);
                          cardtitle.appendChild(ctitle);
 
                          //#card-text
                          var cardtext = document.createElement("p");
-                         cardtext.setAttribute("class","card-text");
+                         cardtext.setAttribute("class","card-text mx-4 d-flex rounded bg-light");
+                         cardtext.setAttribute("class", "text-dark bg-primary rounded-start" );
+                         cardtext.setAttribute("class", "h-100 p-3 d-flex flex-column justify-content-center text-center" );
                          var ctext = document.createTextNode(description);
                          cardtext.appendChild(ctext);
 
@@ -263,8 +271,7 @@
                 .then(response => {
 
                     var listing_list = response.data;
-                    console.log(listing_list);
-                    
+                    console.log(listing_list)
                     for (list in listing_list) {
                         var listing_id = listing_list[list].listing_id; 
                         var title = listing_list[list].title;
@@ -277,38 +284,52 @@
                          var img_directory = "uploads/";
                          var img_link = img_directory.concat(image);
                         
-                         
+                    
+
+
+// Append the container to the document or a specific element where you want to display the cards
+document.body.appendChild(containerFluid);
+
                          //#card
-                         var card = document.createElement("span");
-                         card.setAttribute("class","card col-4 h-30");
-                         //card.setAttribute("style","width:400px");
+                        
+                         var card = document.createElement("div");
+                         card.setAttribute("class", "col-md-6 col-lg-4 wow bounceInUp");
+                        card.setAttribute("data-wow-delay", "0.1s");
                          card.setAttribute("id",listing_id);
 
                          //#image
                          var cardimg = document.createElement("IMG");
                          cardimg.setAttribute("src",img_link);
-                         cardimg.setAttribute("class","img-fluid");
+                         cardimg.setAttribute("class","img-thumbnail");
+                         cardimg.setAttribute("style","width: 420px; height: 420px; object-fit: cover");
+                         cardimg.setAttribute("alt", "");
                          card.appendChild(cardimg);
+
+                    
 
                          //#card-body
                          var cardbody = document.createElement("div");
-                         cardbody.setAttribute("class","card-body");
+                         cardbody.setAttribute("class","card-text mx-4 d-flex rounded bg-light");
+                         
 
                          //#title
                          var cardtitle = document.createElement("h4");
-                         cardtitle.setAttribute("class","card-title");
+                         cardtitle.setAttribute("class","card-title mx-4 d-flex rounded bg-light");
                          var ctitle = document.createTextNode(title);
                          cardtitle.appendChild(ctitle);
 
                          //#card-text
                          var cardtext = document.createElement("p");
-                         cardtext.setAttribute("class","card-text");
+                         cardtext.setAttribute("class","card-text mx-4 d-flex rounded bg-light");
+                         cardtext.setAttribute("class", "text-dark bg-primary rounded-start" );
+                         cardtext.setAttribute("class", "h-100 p-3 d-flex flex-column justify-content-center text-center" );
                          var ctext = document.createTextNode(description);
                          cardtext.appendChild(ctext);
 
                          //Attach card components to card-body
                          cardbody.appendChild(cardtitle);
                          cardbody.appendChild(cardtext);
+                           
                         
                         //org listings button
                          if (user_type == "organization") {  
