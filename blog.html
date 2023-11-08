@@ -43,7 +43,7 @@
         <div class="container-fluid nav-bar">
             <div class="container">
                 <nav class="navbar navbar-light navbar-expand-lg py-4">
-                    <a href="Front/index.html" class="navbar-brand">
+                    <a href="index.html" class="navbar-brand">
                         <h1 class="text-primary fw-bold mb-0">Re<span class="text-dark">Birth</span> </h1>
                     </a>
                     <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
@@ -52,6 +52,7 @@
                     <div class="collapse navbar-collapse" id="navbarCollapse">
                         <div class="navbar-nav mx-auto">
                             <a href="index.html" class="nav-item nav-link active">Home</a>
+                            <a id="hiddencat"></a>
                             <div class="nav-item dropdown">
                                 <a id="sortcat" href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Listings</a>
                                 <div class="dropdown-menu bg-light">
@@ -219,6 +220,16 @@
                     profilelink.setAttribute("href","analytics.html")
             
                     if (user_type == "organization") {
+
+                        var sortcat = document.getElementById("sortcat");
+                        sortcat.setAttribute("class","d-none");
+
+                        var hiddencat = document.getElementById("hiddencat");
+                        hiddencat.href = "listing.html";
+                        hiddencat.setAttribute("class","nav-item nav-link");
+                        hiddencat_textnode = document.createTextNode("Listings");
+                        hiddencat.appendChild(hiddencat_textnode);
+
                         var org_link = "organization.html?Organization=".concat(user_id);
                         profilelink.setAttribute("href",org_link);
                     }
@@ -252,8 +263,6 @@
                             var postcontent = allposts[post].postcontent; 
                             var userid = allposts[post].userid; 
 
-                            console.log(user_id)
-                            console.log(userid)
                             if (user_id == userid) {
                             //#card
                             var card = document.createElement("span");
