@@ -42,15 +42,17 @@
         <div class="container-fluid nav-bar">
             <div class="container">
                 <nav class="navbar navbar-light navbar-expand-lg py-4">
-                    <a href="Front/index.html" class="navbar-brand">
+                    <a href="index.html" class="navbar-brand">
                         <h1 class="text-primary fw-bold mb-0">Re<span class="text-dark">Birth</span> </h1>
                     </a>
                     <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                         <span class="fa fa-bars text-primary"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarCollapse">
+
                         <div class="navbar-nav mx-auto">
                             <a href="index.html" class="nav-item nav-link active">Home</a>
+                            <a id="hiddencat"></a>
                             <div class="nav-item dropdown">
                                 <a id="sortcat" href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Listings</a>
                                 <div class="dropdown-menu bg-light">
@@ -61,7 +63,7 @@
                                     <a href="listing.html?category=Electronics" class="dropdown-item">Electronics</a>
                                 </div>
                             </div>
-                            <a href="service.html" class="nav-item nav-link">Community</a>
+                            <a href="blog.html" class="nav-item nav-link">Community</a>
                         
                             <a href="contact.html" class="nav-item nav-link">Contact</a>
                         </div>
@@ -163,7 +165,13 @@
                 if (user_type == "organization") {  //CONDITIONAL TO DETERMINE ORG OR OTHERS DISPLAY
                     
                     var sortcat = document.getElementById("sortcat");
-                    sortcat.setAttribute("class","d-none")
+                    sortcat.setAttribute("class","d-none");
+
+                    var hiddencat = document.getElementById("hiddencat");
+                    hiddencat.href = "listing.html";
+                    hiddencat.setAttribute("class","nav-item nav-link");
+                    hiddencat_textnode = document.createTextNode("Listings");
+                    hiddencat.appendChild(hiddencat_textnode);
                     
                     //#create button
                     var anchorlink = document.createElement("a");
@@ -288,7 +296,7 @@
 
 
 // Append the container to the document or a specific element where you want to display the cards
-document.body.appendChild(containerFluid);
+
 
                          //#card
                         
