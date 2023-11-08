@@ -3,7 +3,7 @@
 
     <head>
         <meta charset="utf-8">
-        <title>CaterServ - Catering Services Website Template</title>
+        <title>ReBirth - Home </title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <meta content="" name="keywords">
         <meta content="" name="description">
@@ -27,6 +27,7 @@
 
         <!-- Template Stylesheet -->
         <link href="css/style.css" rel="stylesheet">
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     </head>
 
     <body>
@@ -38,41 +39,42 @@
         <!-- Spinner End -->
 
 
-        <!-- Navbar start -->
-        <div class="container-fluid nav-bar">
-            <div class="container">
-                <nav class="navbar navbar-light navbar-expand-lg py-4">
-                    <a href="Front/index.html" class="navbar-brand">
-                        <h1 class="text-primary fw-bold mb-0">Re<span class="text-dark">Birth</span> </h1>
-                    </a>
-                    <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-                        <span class="fa fa-bars text-primary"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarCollapse">
-                        <div class="navbar-nav mx-auto">
-                            <a href="index.html" class="nav-item nav-link active">Home</a>
-                            <div class="nav-item dropdown">
-                                <a id="sortcat" href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Listings</a>
-                                <div class="dropdown-menu bg-light">
-                                    <a href="listing.html" class="dropdown-item">All</a>
-                                    <a href="listing.html?category=Food" class="dropdown-item">Food</a>
-                                    <a href="listing.html?category=Education" class="dropdown-item">Educational Materials</a>
-                                    <a href="listing.html?category=Clothing" class="dropdown-item">Clothing</a>
-                                    <a href="listing.html?category=Electronics" class="dropdown-item">Electronics</a>
-                                </div>
+       <!-- Navbar start -->
+       <div class="container-fluid nav-bar">
+        <div class="container">
+            <nav class="navbar navbar-light navbar-expand-lg py-4">
+                <a href="index.html" class="navbar-brand">
+                    <h1 class="text-primary fw-bold mb-0">Re<span class="text-dark">Birth</span> </h1>
+                </a>
+                <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                    <span class="fa fa-bars text-primary"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav mx-auto">
+                        <a href="index.html" class="nav-item nav-link active">Home</a>
+                        <a id="hiddencat"></a>
+                        <div class="nav-item dropdown">
+                            <a id="sortcat" href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Listings</a>
+                            <div class="dropdown-menu bg-light">
+                                <a href="listing.html" class="dropdown-item">All</a>
+                                <a href="listing.html?category=Food" class="dropdown-item">Food</a>
+                                <a href="listing.html?category=Education" class="dropdown-item">Educational Materials</a>
+                                <a href="listing.html?category=Clothing" class="dropdown-item">Clothing</a>
+                                <a href="listing.html?category=Electronics" class="dropdown-item">Electronics</a>
                             </div>
-                            <a href="blog.html" class="nav-item nav-link">Community</a>
-                        
-                            <a href="contact.html" class="nav-item nav-link">Contact</a>
                         </div>
-                        <button class="btn-search btn btn-primary btn-md-square me-4 rounded-circle d-none d-lg-inline-flex" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fas fa-search"></i></button>
-                        <a id="profileicon"></a>
-                        <a href="" class="btn btn-primary py-2 px-4 d-none d-xl-inline-block rounded-pill" id="loginandout"></a>
+                        <a href="blog.html" class="nav-item nav-link">Community</a>
+                    
+                        <a href="contact.html" class="nav-item nav-link">Contact</a>
                     </div>
-                </nav>
-            </div>
+                    <button class="btn-search btn btn-primary btn-md-square me-4 rounded-circle d-none d-lg-inline-flex" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fas fa-search"></i></button>
+                    <a id="profileicon"></a>
+                    <a href="" class="btn btn-primary py-2 px-4 d-none d-xl-inline-block rounded-pill" id="loginandout"></a>
+                </div>
+            </nav>
         </div>
-        <!-- Navbar End -->
+    </div>
+    <!-- Navbar End -->
 
         <!-- Modal Search Start -->
         <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -223,6 +225,60 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
-    </body>
+    <script>
+        let usercheck_url = "userlog.php"
 
+        axios.get(usercheck_url) //FIRST AXIOS START  --CHECK FOR USERTYPE & USERID
+        .then(response => {
+
+        var user_id = response.data[0].userid;
+        var user_type = response.data[0].usertype;
+        console.log(response.data)
+        
+        if (user_id=='' || user_id == undefined || user_id== null) {
+            var loginandout = document.getElementById("loginandout");
+            var loginandout_textnode = document.createTextNode("Login");
+            loginandout.appendChild(loginandout_textnode);
+            loginandout.href = "login.html";
+        }
+        else {
+            var loginandout = document.getElementById("loginandout");
+            var loginandout_textnode = document.createTextNode("Logout");
+            loginandout.appendChild(loginandout_textnode);
+            
+            var profileicon = document.getElementById("profileicon");
+            var profileimg = document.createElement("IMG");
+            profileimg.setAttribute("src","default_pictures/profile.png");
+
+            var profilelink = document.createElement("a");
+            profilelink.setAttribute("href","analytics.html")
+
+        
+            if (user_type == "organization") {
+                
+                var sortcat = document.getElementById("sortcat");
+                sortcat.setAttribute("class","d-none");
+
+                var hiddencat = document.getElementById("hiddencat");
+                hiddencat.href = "listing.html";
+                hiddencat.setAttribute("class","nav-item nav-link");
+                hiddencat_textnode = document.createTextNode("Listings");
+                hiddencat.appendChild(hiddencat_textnode);
+
+
+                var org_link = "organization.html?Organization=".concat(user_id);
+                profilelink.setAttribute("href",org_link);
+            }
+
+            profilelink.appendChild(profileimg);
+
+            profileicon.appendChild(profilelink);
+            
+            loginandout.href = "logout.php"; 
+        }}).catch(error => {     
+                console.log(error.message)
+            })
+        
+    </script>
+    </body>
 </html>
