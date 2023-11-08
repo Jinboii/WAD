@@ -1,5 +1,5 @@
 <?php
-require_once 'PasswordDAO.php';
+require_once 'autoload.php';
 
 // Enabling error display
 ini_set('display_errors', 1);
@@ -23,7 +23,7 @@ if (!isset($data['username']) || !isset($data['email']) || !isset($data['passwor
     echo json_encode(['message' => 'Incomplete registration data provided.']);
     exit;
 }
-
+ 
 $passwordDAO = new PasswordDAO();
 
 // Check if the username is unique
@@ -44,3 +44,4 @@ if ($passwordDAO->savePassword($data['username'], $data['email'], $hashedPasswor
     echo json_encode(['message' => 'Registration failed. Please try again later.']);
 }
 ?>
+
