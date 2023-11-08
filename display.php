@@ -5,6 +5,7 @@
     
     $userid = "";
     $usertype = "";
+    $category1 = "";
     # Retrieve userid & usertype from the html/userlog
     if (isset($_SESSION["userid"])) {
         $userid = $_SESSION["userid"];
@@ -12,7 +13,9 @@
     if (isset($_SESSION["usertype"])) {
         $usertype = $_SESSION["usertype"];
     }
-    
+    if (isset($_REQUEST["choosencategory"])) {
+        $category1 = $_REQUEST["choosencategory"];
+    }
     # Create a new listingDAO object
     $dao = new ListingDAO(); 
 
@@ -51,8 +54,8 @@
             $organization = $listing->getOrganization();
             $donater = $listing->getDonater();
             
-            if ($_REQUEST["choosencategory"]!="") {
-                if($_REQUEST["choosencategory"] == $category) {
+            if ($category1!="" ) {
+                if($category1 == $category) {
                     array_push($processed_data,[ "listing_id" => $listing_id, "title" => $title, "description" =>$description, 
                     "category"=> $category, "image"=> $image, "organization"=> $organization, "donater" => $donater]);
                 }
