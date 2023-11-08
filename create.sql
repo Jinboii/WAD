@@ -56,3 +56,28 @@ CREATE TABLE IF NOT EXISTS archive (
     organization text NOT NULL,
     donater text NULL
 );
+
+CREATE TABLE IF NOT EXISTS users (
+    id int NOT NULL,
+    username text NOT NULL,
+    email text NOT NULL,
+    password text NOT NULL,    
+    role text NOT NULL
+);
+INSERT INTO users (id, username, email, password, role) VALUES (1, 'Salvation Army', 'abc@gmail.com', 'hello', 'organization');
+INSERT INTO users (id, username, email, password, role) VALUES (2, 'Food From the Heart', 'xyz@gmail.com', 'hello', 'organization');
+INSERT INTO users (id, username, email, password, role) VALUES (3, 'Food Bank', 'def@gmail.com', 'hello', 'organization');
+INSERT INTO users (id, username, email, password, role) VALUES (4, 'John', 'ghi@gmail.com', 'hello', 'user');
+
+
+CREATE TABLE IF NOT EXISTS post (
+    userid text NOT NULL,
+    postid text NOT NULL,
+    posttitle text NOT NULL,
+    postcontent text NOT NULL  
+);
+
+INSERT INTO post (userid, postid, posttitle, postcontent) VALUES ('Salvation Army', 'SalvationArmy1', 'Food Donation Drive', 'Thanks to everyone that came to down to our donation drive!');
+INSERT INTO post (userid, postid, posttitle, postcontent) VALUES ('Food From the Heart', 'FoodFromTheHeart2', 'Successful donation', 'Collected a lot of food last weekend!');
+INSERT INTO post (userid, postid, posttitle, postcontent) VALUES ('Food Bank', 'FoodBank3', 'Food for the low-income family', 'Took the weekend to give out the food that we collected on our donation drive to low-income families');
+INSERT INTO post (userid, postid, posttitle, postcontent) VALUES ('John', 'John4', 'Happy to be a volunteer', 'Volunteered over the weekend and I really enjoyed it :)');
