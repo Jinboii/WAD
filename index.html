@@ -53,6 +53,7 @@
                     <div class="navbar-nav mx-auto">
                         <a href="index.html" class="nav-item nav-link active">Home</a>
                         <div class="nav-item dropdown">
+                            <a id="hiddencat"></a>
                             <a id="sortcat" href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Listings</a>
                             <div class="dropdown-menu bg-light">
                                 <a href="listing.html" class="dropdown-item">All</a>
@@ -524,6 +525,17 @@
 
             
                 if (user_type == "organization") {
+                    
+                    var sortcat = document.getElementById("sortcat");
+                    sortcat.setAttribute("class","d-none");
+
+                    var hiddencat = document.getElementById("hiddencat");
+                    hiddencat.href = "listing.html";
+                    hiddencat.setAttribute("class","nav-item nav-link");
+                    hiddencat_textnode = document.createTextNode("Listings");
+                    hiddencat.appendChild(hiddencat_textnode);
+
+
                     var org_link = "organization.html?Organization=".concat(user_id);
                     profilelink.setAttribute("href",org_link);
                 }
