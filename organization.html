@@ -34,7 +34,7 @@
 
         <!-- Template Stylesheet -->
         <link href="css/style.css" rel="stylesheet">
-        <title>About Organization</title>
+        <title>User Analytics</title>
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     </head>
 
@@ -54,18 +54,19 @@
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Listings</a>
                                 <div class="dropdown-menu bg-light">
-                                    <a href="food.html" class="dropdown-item">Food</a>
-                                    <a href="education.html" class="dropdown-item">Educational Materials</a>
-                                    <a href="clothing.html" class="dropdown-item">Clothing</a>
-                                    <a href="electronics.html" class="dropdown-item">Electronics</a>
+                                    <a href="listing.html" class="dropdown-item">All</a>
+                                    <a href="listing.html?category=Food" class="dropdown-item">Food</a>
+                                    <a href="listing.html?category=Education" class="dropdown-item">Educational Materials</a>
+                                    <a href="listing.html?category=Clothing" class="dropdown-item">Clothing</a>
+                                    <a href="listing.html?category=Electronics" class="dropdown-item">Electronics</a>
                                 </div>
                             </div>
-                            <a href="service.html" class="nav-item nav-link">Community</a>
+                            <a href="blog.html" class="nav-item nav-link">Community</a>
                         
                             <a href="contact.html" class="nav-item nav-link">Contact</a>
                         </div>
                         <button class="btn-search btn btn-primary btn-md-square me-4 rounded-circle d-none d-lg-inline-flex" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fas fa-search"></i></button>
-                        <a href="" class="btn btn-primary py-2 px-4 d-none d-xl-inline-block rounded-pill">Login</a>
+                        <a href="logout.php" id="loginandout" class="btn btn-primary py-2 px-4 d-none d-xl-inline-block rounded-pill"></a>
                     </div>
                 </nav>
             </div>
@@ -105,7 +106,7 @@
                                 <div class="d-inline-flex w-100 border border-primary p-4 rounded mb-4">
                                     <i class="fas fa-user fa-2x text-primary me-4"></i>
                                     <div class="">
-                                        <div id="orgname"><h4>Organization name to edit</h4></div>
+                                        <div id="orgname"></div>
                                     
                                     </div>
                                 </div>
@@ -156,17 +157,75 @@
 
 
     <script>
+        
+
         function org_display() {
 
             
             var current_link = window.location.href;
             var org_string_position = current_link.search("Organization") + 13;
-            var user_id = current_link.substr(org_string_position);
-            
-            console.log(user_id);
+            var userid2 = current_link.substr(org_string_position);
+        
+            let usercheck_url = "userlog.php"
 
+            axios.get(usercheck_url) //FIRST AXIOS START  --CHECK FOR USERTYPE & USERID
+            .then(response => {
+
+            var user_id = response.data[0].userid;
+            var user_type = response.data[0].usertype;
+            console.log(response.data)
+
+            if (user_id=='' || user_id == undefined || user_id== null) {
+                var loginandout = document.getElementById("loginandout");
+                var loginandout_textnode = document.createTextNode("Login");
+                loginandout.appendChild(loginandout_textnode);
+                loginandout.href = "login.html";
+            }
+            else {
+                var loginandout = document.getElementById("loginandout");
+                var loginandout_textnode = document.createTextNode("Logout");
+                loginandout.appendChild(loginandout_textnode);
+                
+                var profileicon = document.getElementById("profileicon");
+                var profileimg = document.createElement("IMG");
+                profileimg.setAttribute("src","default_pictures/profile.png");
+
+                var profilelink = document.createElement("a");
+                profilelink.setAttribute("href","analytics.html")
+
+
+                if (user_type == "organization") {
+                    
+                    var sortcat = document.getElementById("sortcat");
+                    sortcat.setAttribute("class","d-none");
+
+                    var hiddencat = document.getElementById("hiddencat");
+                    hiddencat.href = "listing.html";
+                    hiddencat.setAttribute("class","nav-item nav-link");
+                    hiddencat_textnode = document.createTextNode("Listings");
+                    hiddencat.appendChild(hiddencat_textnode);
+
+
+                    var org_link = "organization.html?Organization=".concat(user_id);
+                    profilelink.setAttribute("href",org_link);
+                }
+
+                profilelink.appendChild(profileimg);
+
+                profileicon.appendChild(profilelink);
+                
+                loginandout.href = "logout.php"; 
+            }}).catch(error => {     
+                    console.log(error.message)
+                })
+
+
+
+            console.log(userid2);
+
+            document.getElementById("orgname").innerHTML = "<h4>".concat(userid2,"</h4>")
             let display_url = "display.php"
-            let para = {userid : user_id, 
+            let para = {userid : userid2, 
                 usertype : "organization"} ;  
 
             axios.get(display_url, {params:para}) 
