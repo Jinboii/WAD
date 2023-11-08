@@ -56,18 +56,20 @@ CREATE TABLE IF NOT EXISTS archive (
     organization text NOT NULL,
     donater text NULL
 );
-
-CREATE TABLE IF NOT EXISTS users (
-    id int NOT NULL,
-    username text NOT NULL,
-    email text NOT NULL,
-    password text NOT NULL,    
-    role text NOT NULL
+CREATE TABLE IF NOT EXISTS users(
+    id int NOT NULL AUTO_INCREMENT,
+    username VARCHAR(512) NOT NULL,
+    email TEXT NOT NULL, 
+    password TEXT NOT NULL,
+    role TEXT NOT NULL,
+    PRIMARY KEY (id,username)
 );
-INSERT INTO users (id, username, email, password, role) VALUES (1, 'Salvation Army', 'abc@gmail.com', 'hello', 'organization');
-INSERT INTO users (id, username, email, password, role) VALUES (2, 'Food From the Heart', 'xyz@gmail.com', 'hello', 'organization');
-INSERT INTO users (id, username, email, password, role) VALUES (3, 'Food Bank', 'def@gmail.com', 'hello', 'organization');
-INSERT INTO users (id, username, email, password, role) VALUES (4, 'John', 'ghi@gmail.com', 'hello', 'user');
+
+INSERT INTO users (username, email, password, role) VALUES ('Salvation Army', 'abc@gmail.com', '$2y$10$kXC7pHWdlCsdZgUD0V.o6.oj65r5SPM4PXNtSbkA4biLuWsaw3f8i', 'organization'); --password: Salvationarmy
+INSERT INTO users (username, email, password, role) VALUES ('Food From the Heart', 'xyz@gmail.com', '$2y$10$owWKa6cBF9DschyyVEBOMudr3NN5.t/uJX4MksISOBtvWB4WiFZ46', 'organization'); --password: Foodfromtheheart
+INSERT INTO users (username, email, password, role) VALUES ('Food Bank', 'def@gmail.com', '$2y$10$CUz1e/sIPu7cUHQ0X2GTXe1/NBoVcjsG/c7y1BcT8bd78gH8iZWHq', 'organization'); --password: Foodbank
+INSERT INTO users (username, email, password, role) VALUES ('John', 'ghi@gmail.com', '$2y$10$UTqlS8ZyBGpAc2CP4TFBUeDuoo0gXN9a4LtqbnZSX517ac.42T6lW', 'user'); --password: John
+
 
 
 CREATE TABLE IF NOT EXISTS post (
