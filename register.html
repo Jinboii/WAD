@@ -69,7 +69,7 @@
                 </div>
                 <button class="btn-search btn btn-primary btn-md-square me-4 rounded-circle d-none d-lg-inline-flex" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fas fa-search"></i></button>
                 <a id="profileicon"></a>
-                <a href="" class="btn btn-primary py-2 px-4 d-none d-xl-inline-block rounded-pill" id="loginandout"></a>
+                <a href="" class="btn btn-primary py-2 px-4 d-none d-xl-inline-block rounded-pill" id="loginandout">Login</a>
             </div>
         </nav>
     </div>
@@ -106,7 +106,7 @@
             <div class="col-10 border-primary form-control">
                 <div class="rounded-1 border-primary bg-light py-5 px-4">
                     <div class="text-center">
-                        <small class="d-inline-block fw-bold text-dark text-uppercase bg-light border border-primary rounded-pill px-4 py-1 mb-3">User Registration</small>
+                        <small class="d-inline-block fw-bold text-dark text-uppercase bg-light border border-primary rounded-pill px-4 py-1 mb-3">Registration</small>
                         <h1 class="display-5 mb-5">Register</h1>
                     </div>
 
@@ -115,30 +115,31 @@
     <div class="row g-4 form">
         <!-- Begin the form -->
         <form @submit.prevent="register">
-            <div class="col-lg-4 col-md-6">
-                <label for="username">Username:</label>
+            <div class="col">
+                <label for="username" class="text-dark">Username:</label>
                 <input type="text" id="username" v-model="username" class="form-control border-primary p-2" required>
             </div>
             
-            <div class="col-lg-4 col-md-6">
-                <label for="email">Email:</label>
+            <div class="col">
+                <label for="email" class="text-dark">Email:</label>
                 <input type="email" id="email" v-model="email" class="form-control border-primary p-2" required>
             </div>
 
-            <div class="col-lg-4 col-md-6">
-                <label for="password">Password:</label>
+            <div class="col">
+                <label for="password" class="text-dark">Password:</label>
                 <input type="password" id="password" v-model="password" class="form-control border-primary p-2" required>
             </div>
-            <div class="col-lg-4 col-md-6">
-                <label for="confirmPassword">Confirm Password:</label>
+            <div class="col">
+                <label for="confirmPassword" class="text-dark">Confirm Password:</label>
                 <input type="password" id="confirmPassword" v-model="confirmPassword" class="form-control border-primary p-2" required>
             </div>
-            <div class="col-lg-4 col-md-6">
+            <div class="col">
                 
                 </select>
             </div>
 
             <!-- Moved the Register button inside the form -->
+            <br>
             <div class="col-12 text-center">
                 <button type="submit" class="btn btn-primary px-5 py-3 rounded-pill">Register</button>
             </div>
