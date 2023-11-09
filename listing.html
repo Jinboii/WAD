@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>Listings</title>
+        <title>ReBirth - Give Life To Your Items</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <meta content="" name="keywords">
         <meta content="" name="description">
@@ -114,6 +114,7 @@
         
         <div id="message"></div>
         <div id="org_buttons"></div>
+        <br></br>
         <div id="listings_of_items" class="container-fluid row"></div>
         <div id="archive" class="container-fluid row"></div>
 
@@ -142,9 +143,8 @@
                     loginandout.appendChild(loginandout_textnode);
                     
                     var profileicon = document.getElementById("profileicon");
-                    var profileimg = document.createElement("IMG");
-                    profileimg.setAttribute("src","default_pictures/profile.png");
-                    profileimg.classList.add("blog-item");
+                    var profileimg = document.createElement("i");
+                    profileimg.classList.add("fas", "fa-user", "fa-2x", "text-primary", "me-4"); 
             
                     var profilelink = document.createElement("a");
                     profilelink.setAttribute("href","analytics.html")
@@ -181,8 +181,9 @@
 
                     var createButton = document.createElement("button");
                     createButton.setAttribute("type", "submit");
-                    createButton.classList.add("w-50", "btn", "btn-primary", "border-primary", "bg-primary", "rounded-pill");
+                    createButton.classList.add("w-25", "btn", "btn-primary", "border-primary", "bg-primary", "rounded-pill");
                     createButton.textContent = "Create";
+
 
                     var anchorLink = document.createElement("a");
                     anchorLink.setAttribute("href", "upload.html");
@@ -190,6 +191,18 @@
                     anchorLink.appendChild(createButton);
                     buttonContainer.appendChild(anchorLink);
                     orgButtons.appendChild(buttonContainer);
+
+
+
+
+                    // var anchorlink = document.createElement("a");
+                    // anchorlink.setAttribute("href","upload.html");
+                    // var createbutton = document.createElement("button");
+                    
+                    // var createbuttontext = document.createTextNode("Create");
+                    // createbutton.appendChild(createbuttontext);
+                    // anchorlink.appendChild(createbutton)
+                    // document.getElementById("org_buttons").appendChild(anchorlink);
 
                     document.getElementById("archive").innerHTML = "<h2>Past listings</h2>";
 
@@ -218,41 +231,45 @@
                         
                          
                          //#card
-var card = document.createElement("div");
-card.setAttribute("class", "col-md-6 col-lg-4 wow bounceInUp");
-card.setAttribute("data-wow-delay", "0.1s");
-card.setAttribute("id", listing_id);
+                        
+                         var card = document.createElement("div");
+                         card.setAttribute("class", "col-md-6 col-lg-4 wow bounceInUp");
+                        card.setAttribute("data-wow-delay", "0.1s");
+                         card.setAttribute("id",listing_id);
 
-//#image
-var cardimg = document.createElement("img");
-cardimg.setAttribute("src", img_link);
-cardimg.setAttribute("class", "img-thumbnail");
-cardimg.setAttribute("style", "width: 420px; height: 420px; object-fit: cover");
-cardimg.setAttribute("alt", "");
-card.appendChild(cardimg);
+                         //#image
+                         var cardimg = document.createElement("IMG");
+                         cardimg.setAttribute("src",img_link);
+                         cardimg.setAttribute("class","img-thumbnail");
+                         cardimg.setAttribute("style","width: 420px; height: 420px; object-fit: cover");
+                         cardimg.setAttribute("alt", "");
+                         card.appendChild(cardimg);
 
-//#card-body
-var cardbody = document.createElement("div");
-cardbody.setAttribute("class", "card-text mx-4 d-flex rounded bg-light");
+                    
 
-//#title
-var cardtitle = document.createElement("h4");
-cardtitle.setAttribute("class", "card-title mx-4 d-flex rounded bg-light");
-var ctitle = document.createTextNode(title);
-cardtitle.appendChild(ctitle);
+                         //#card-body
+                         var cardbody = document.createElement("div");
+                         cardbody.setAttribute("class","card-text mx-4 d-flex rounded bg-light");
+                         
 
-//#description
-var cardtext = document.createElement("p");
-cardtext.setAttribute("class", "card-text mx-4 d-flex rounded bg-light");
-cardtext.setAttribute("class", "text-dark bg-primary rounded-start");
-cardtext.setAttribute("class", "h-100 p-3 d-flex flex-column justify-content-center text-center");
-var ctext = document.createTextNode(description);
-cardtext.appendChild(ctext);
+                         //#title
+                         var cardtitle = document.createElement("h4");
+                         cardtitle.setAttribute("class","card-title mx-4 d-flex rounded bg-light");
+                         var ctitle = document.createTextNode(title);
+                         cardtitle.appendChild(ctitle);
 
-// Attach card components to card-body
-cardbody.appendChild(cardtitle);
-cardbody.appendChild(cardtext);
-card.appendChild(cardbody);    
+                         //#card-text
+                         var cardtext = document.createElement("p");
+                         cardtext.setAttribute("class","card-text mx-4 d-flex rounded bg-light");
+                         cardtext.setAttribute("class", "text-dark bg-primary rounded-start" );
+                         cardtext.setAttribute("class", "h-100 p-3 d-flex flex-column justify-content-center text-center" );
+                         var ctext = document.createTextNode(description);
+                         cardtext.appendChild(ctext);
+
+                         //Attach card components to card-body
+                         cardbody.appendChild(cardtitle);
+                         cardbody.appendChild(cardtext);
+                         card.appendChild(cardbody);    
                         
 
                          document.getElementById("archive").appendChild(card);
@@ -301,45 +318,35 @@ card.appendChild(cardbody);
 
 
 // Append the container to the document or a specific element where you want to display the cards
-document.body.appendChild(containerFluid);
 
                          //#card
-                        
-                         var card = document.createElement("div");
-                         card.setAttribute("class", "col-md-6 col-lg-4 wow bounceInUp");
-                        card.setAttribute("data-wow-delay", "0.1s");
-                         card.setAttribute("id",listing_id);
+                        var card = document.createElement("span");
+                        card.setAttribute("class","card col-4 h-30");
+                        //card.setAttribute("style","width:400px");
+                        card.setAttribute("id",listing_id);
 
-                         //#image
-                         var cardimg = document.createElement("IMG");
-                         cardimg.setAttribute("src",img_link);
-                         cardimg.setAttribute("class","img-thumbnail");
-                         cardimg.setAttribute("style","width: 420px; height: 420px; object-fit: cover");
-                         cardimg.setAttribute("alt", "");
-                         card.appendChild(cardimg);
+                        //#image
+                        var cardimg = document.createElement("IMG");
+                        cardimg.setAttribute("src",img_link);
+                        cardimg.setAttribute("class","img-fluid");
+                        card.appendChild(cardimg);
 
-                    
+                        //#card-body
+                        var cardbody = document.createElement("div");
+                        cardbody.setAttribute("class","card-body");
 
-                         //#card-body
-                         var cardbody = document.createElement("div");
-                         cardbody.setAttribute("class","card-text mx-4 d-flex rounded bg-light");
-                         
+                        //#title
+                        var cardtitle = document.createElement("h4");
+                        cardtitle.setAttribute("class","card-title");
+                        var ctitle = document.createTextNode(title);
+                        cardtitle.appendChild(ctitle);
 
-                         //#title
-                         var cardtitle = document.createElement("h4");
-                         cardtitle.setAttribute("class","card-title mx-4 d-flex rounded bg-light");
-                         var ctitle = document.createTextNode(title);
-                         cardtitle.appendChild(ctitle);
+                        //#card-text
+                        var cardtext = document.createElement("p");
+                        cardtext.setAttribute("class","card-text");
+                        var ctext = document.createTextNode(description);
+                        cardtext.appendChild(ctext);
 
-                         //#card-text
-                         var cardtext = document.createElement("p");
-                         cardtext.setAttribute("class","card-text mx-4 d-flex rounded bg-light");
-                         cardtext.setAttribute("class", "text-dark bg-primary rounded-start" );
-                         cardtext.setAttribute("class", "h-100 p-3 d-flex flex-column justify-content-center text-center" );
-                         var ctext = document.createTextNode(description);
-                         cardtext.appendChild(ctext);
-
-                         //Attach card components to card-body
                          cardbody.appendChild(cardtitle);
                          cardbody.appendChild(cardtext);
                            
@@ -347,21 +354,18 @@ document.body.appendChild(containerFluid);
                         //org listings button
                          if (user_type == "organization") {  
                             //#update button
-                          
-
                             var button_update = document.createElement("a");
-                            button_update.setAttribute("class", "btn btn-primary border-primary bg-primary rounded-pill"); 
-                            var data_url_update = "upload.html".concat("?listing_id=", listing_id);
-                            button_update.setAttribute("href", data_url_update);
-                            button_update.setAttribute("id", "update");
-                            var updateButtonText = document.createTextNode("Update");
-                            button_update.appendChild(updateButtonText);
+                            button_update.setAttribute("class","btn btn-primary border-primary bg-primary rounded-pill");
+                            var data_url_update = "upload.html".concat("?listing_id=",listing_id);
+                            button_update.setAttribute("href",data_url_update);
+                            button_update.setAttribute("id","update");
+                            var updatebuttontext = document.createTextNode("Update");
+                            button_update.appendChild(updatebuttontext);
                             cardbody.appendChild(button_update);
-
 
                             //#delete button
                             var button_delete = document.createElement("a");
-                            button_delete.setAttribute("class","btn btn-danger border-primary bg-primary rounded-pill");
+                            button_delete.setAttribute("class","btn btn-danger border-primary bg-danger rounded-pill");
                             var data_url_delete = "delete.php".concat("?listing_id=",listing_id);
                             button_delete.setAttribute("href",data_url_delete);
                             button_delete.setAttribute("id","delete");
@@ -372,7 +376,7 @@ document.body.appendChild(containerFluid);
                             //#accept button
                             if(donater!="") {
                                 var button_accept = document.createElement("a");
-                                button_accept.setAttribute("class","btn btn-primary border-primary bg-primary rounded-pill");
+                                button_accept.setAttribute("class","class","btn btn-primary border-primary bg-primary rounded-pill");
                                 var data_url_accept = "accept.php".concat("?listing_id=",listing_id);
                                 button_accept.setAttribute("href",data_url_accept);
                                 var acceptbuttontext = document.createTextNode("Accept");
@@ -442,7 +446,12 @@ document.body.appendChild(containerFluid);
                         <div class="footer-item">
                             <h1 class="text-primary mb-4 ">Re<span class="text-dark">Birth</span></h1>
                             
-                           
+                            <!-- <div class="footer-icon d-flex">
+                                <a class="btn btn-primary btn-sm-square me-2 rounded-circle" href=""><i class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-primary btn-sm-square me-2 rounded-circle" href=""><i class="fab fa-twitter"></i></a>
+                                <a href="#" class="btn btn-primary btn-sm-square me-2 rounded-circle"><i class="fab fa-instagram"></i></a>
+                                <a href="#" class="btn btn-primary btn-sm-square rounded-circle"><i class="fab fa-linkedin-in"></i></a>
+                            </div> -->
                         </div>
                     </div>
                     
