@@ -3,7 +3,7 @@
 
     <head>
         <meta charset="utf-8">
-        <title>ReBirth - Give Life To Your Items</title>
+        <title>Community</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <meta content="" name="keywords">
         <meta content="" name="description">
@@ -155,23 +155,7 @@
         <!-- Footer End -->
 
 
-        <!-- Copyright Start -->
-        <div class="container-fluid copyright bg-dark py-4">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                        <span class="text-light"><a href="#"><i class="fas fa-copyright text-light me-2"></i>Your Site Name</a>, All right reserved.</span>
-                    </div>
-                    <div class="col-md-6 my-auto text-center text-md-end text-white">
-                        <!--/*** This template is free as long as you keep the below author’s credit link/attribution link/backlink. ***/-->
-                        <!--/*** If you'd like to use the template without the below author’s credit link/attribution link/backlink, ***/-->
-                        <!--/*** you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". ***/-->
-                        Designed By <a class="border-bottom" href="https://htmlcodex.com">HTML Codex</a> Distributed By <a class="border-bottom" href="https://themewagon.com">ThemeWagon</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Copyright End -->
+       
 
 
         <!-- Back to Top -->
@@ -264,32 +248,37 @@
                             var userid = allposts[post].userid; 
 
                             if (user_id == userid) {
-                            //#card
-                            var card = document.createElement("span");
-                            card.setAttribute("class","card col-4 h-30");
-                            //card.setAttribute("style","width:400px");
-                            card.setAttribute("id",postid);
+                        
+//#card
+var card = document.createElement("div");
+card.setAttribute("class", "col-md-6 col-lg-4 wow bounceInUp");
+card.setAttribute("data-wow-delay", "0.1s");
+card.setAttribute("id", listing_id);
 
-                            //#card-body
-                            var cardbody = document.createElement("div");
-                            cardbody.setAttribute("class","card-body");
 
-                            //#title
-                            var cardtitle = document.createElement("h4");
-                            cardtitle.setAttribute("class","card-title");
-                            var ctitle = document.createTextNode(posttitle);
-                            cardtitle.appendChild(ctitle);
+//#card-body
+var cardbody = document.createElement("div");
+cardbody.setAttribute("class", "card-text mx-4 d-flex rounded bg-light");
 
-                            //#card-text
-                            var cardtext = document.createElement("p");
-                            cardtext.setAttribute("class","card-text");
-                            var ctext = document.createTextNode(postcontent);
-                            cardtext.appendChild(ctext);
+//#title
+var cardtitle = document.createElement("h4");
+cardtitle.setAttribute("class", "card-title mx-4 d-flex rounded bg-light");
+var ctitle = document.createTextNode(title);
+cardtitle.appendChild(ctitle);
 
+//#description
+var cardtext = document.createElement("p");
+cardtext.setAttribute("class", "card-text mx-4 d-flex rounded bg-light");
+cardtext.setAttribute("class", "text-dark bg-primary rounded-start");
+cardtext.setAttribute("class", "h-100 p-3 d-flex flex-column justify-content-center text-center");
+var ctext = document.createTextNode(description);
+cardtext.appendChild(ctext);
+
+ 
 
                             //#update button
                             var button_update = document.createElement("a");
-                            button_update.setAttribute("class","btn btn-primary");
+                            button_update.setAttribute("class", "btn btn-primary border-primary bg-primary rounded-pill");
                             var data_url_update = "createpost.html".concat("?postid=",postid);
                             button_update.setAttribute("href",data_url_update);
                             button_update.setAttribute("id","update");
@@ -299,7 +288,7 @@
 
                             //#delete button
                             var button_delete = document.createElement("a");
-                            button_delete.setAttribute("class","btn btn-danger");
+                            button_delete.setAttribute("class","btn btn-danger border-primary bg-primary rounded-pill");
                             var data_url_delete = "deletepost.php".concat("?postid=",postid);
                             button_delete.setAttribute("href",data_url_delete);
                             button_delete.setAttribute("id","delete");
@@ -307,10 +296,10 @@
                             button_delete.appendChild(deletebuttontext);
                             cardbody.appendChild(button_delete);
 
-                            //Attach card components to card-body
-                            cardbody.appendChild(cardtitle);
-                            cardbody.appendChild(cardtext);
-                            card.appendChild(cardbody);    
+                            // Attach card components to card-body
+cardbody.appendChild(cardtitle);
+cardbody.appendChild(cardtext);
+card.appendChild(cardbody);     
 
                             //Attach card to document
                             document.getElementById("mypost").appendChild(card);
@@ -339,32 +328,36 @@
                         var postcontent = allposts[post].postcontent; 
                         var userid = allposts[post].userid; 
 
-                         //#card
-                         var card = document.createElement("span");
-                         card.setAttribute("class","card col-4 h-30");
-                         //card.setAttribute("style","width:400px");
-                         card.setAttribute("id",postid);
+                       //#card
+var card = document.createElement("div");
+card.setAttribute("class", "col-md-6 col-lg-4 wow bounceInUp");
+card.setAttribute("data-wow-delay", "0.1s");
+card.setAttribute("id", listing_id);
 
-                         //#card-body
-                         var cardbody = document.createElement("div");
-                         cardbody.setAttribute("class","card-body");
 
-                         //#title
-                         var cardtitle = document.createElement("h4");
-                         cardtitle.setAttribute("class","card-title");
-                         var ctitle = document.createTextNode(posttitle);
-                         cardtitle.appendChild(ctitle);
+//#card-body
+var cardbody = document.createElement("div");
+cardbody.setAttribute("class", "card-text mx-4 d-flex rounded bg-light");
+
+//#title
+var cardtitle = document.createElement("h4");
+cardtitle.setAttribute("class", "card-title mx-4 d-flex rounded bg-light");
+var ctitle = document.createTextNode(title);
+cardtitle.appendChild(ctitle);
 
                          //#person who published
                          var cardsubtitle = document.createElement("h6");
-                         cardsubtitle.setAttribute("class","card-subtitle mb-2 text-muted");
+                         cardsubtitle.setAttribute("class","card-subtitle mb-2 text-dark");
                          var csubtitle = document.createTextNode("Author: ".concat(userid));
                          cardsubtitle.appendChild(csubtitle);
 
 
-                         //#card-text
-                         var cardtext = document.createElement("p");
-                         cardtext.setAttribute("class","card-text");
+                         
+                          //#card-text
+                          var cardtext = document.createElement("p");
+                         cardtext.setAttribute("class","card-text mx-4 d-flex rounded bg-light");
+                         cardtext.setAttribute("class", "text-dark bg-primary rounded-start" );
+                         cardtext.setAttribute("class", "h-100 p-3 d-flex flex-column justify-content-center text-center" );
                          var ctext = document.createTextNode(postcontent);
                          cardtext.appendChild(ctext);
 
