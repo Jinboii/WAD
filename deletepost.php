@@ -168,7 +168,6 @@
                                 </div>
                             </div>';
         } else {
-            echo "<h3>Post deletion was NOT successful!</h3>";
 
             echo ' <div class="container-fluid contact py-6 wow bounceInUp" data-wow-delay="0.1s">
             <div class="container">
