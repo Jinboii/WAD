@@ -69,8 +69,7 @@
                         </div>
                         <button class="btn-search btn btn-primary btn-md-square me-4 rounded-circle d-none d-lg-inline-flex" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fas fa-search"></i></button>
                         <a id="profileicon"></a>
-                        <a href="logout.php" id="loginandout" class="btn btn-primary py-2 px-4 d-none d-xl-inline-block rounded-pill">Logout</a>
-                        
+                        <a href="" class="btn btn-primary py-2 px-4 d-none d-xl-inline-block rounded-pill" id="loginandout"></a>
                     </div>
                 </nav>
             </div>
@@ -88,10 +87,11 @@
                     </div>
                     <div class="modal-body d-flex align-items-center">
                         <div class="input-group w-75 mx-auto d-flex">
-                            <input type="search" class="form-control bg-transparent p-3" placeholder="Search ReBirth" aria-describedby="search-icon-1">
+                            <input id="search" type="search" class="form-control bg-transparent p-3" placeholder="Search ReBirth" aria-describedby="search-icon-1">
                             <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
                         </div>
                     </div>
+                    <ul  id="searchresults" class="modal-body d-flex align-items-center fs-4"></ul>
                 </div>
             </div>
         </div>
@@ -155,6 +155,24 @@
         </div>
         <!-- Footer End -->
 
+        <!-- Copyright Start -->
+        <div class="container-fluid copyright bg-dark py-4">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                        <span class="text-light"><a href="#"><i class="fas fa-copyright text-light me-2"></i>ReBirth</a>, All right reserved.</span>
+                    </div>
+                    <div class="col-md-6 my-auto text-center text-md-end text-white">
+                        <!--/*** This template is free as long as you keep the below author’s credit link/attribution link/backlink. ***/-->
+                        <!--/*** If you'd like to use the template without the below author’s credit link/attribution link/backlink, ***/-->
+                        <!--/*** you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". ***/-->
+                        Designed By <a class="border-bottom" href="https://htmlcodex.com">HTML Codex</a> Distributed By <a class="border-bottom" href="https://themewagon.com">ThemeWagon</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Copyright End -->
+
 
        
 
@@ -198,8 +216,8 @@
                     loginandout.appendChild(loginandout_textnode);
     
                     var profileicon = document.getElementById("profileicon");
-                    var profileimg = document.createElement("IMG");
-                    profileimg.setAttribute("src","default_pictures/profile.png");
+                    var profileimg = document.createElement("i");
+                    profileimg.classList.add("fas", "fa-user", "fa-2x", "text-primary", "me-4"); 
 
                     var profilelink = document.createElement("a");
                     profilelink.setAttribute("href","analytics.html")
@@ -250,60 +268,60 @@
 
                             if (user_id == userid) {
                         
-//#card
-var card = document.createElement("div");
-card.setAttribute("class", "col-md-6 col-lg-4 wow bounceInUp");
-card.setAttribute("data-wow-delay", "0.1s");
-card.setAttribute("id", listing_id);
+                        //#card
+                        var card = document.createElement("div");
+                        card.setAttribute("class", "col-md-6 col-lg-4 wow bounceInUp");
+                        card.setAttribute("data-wow-delay", "0.1s");
+                        card.setAttribute("id", postid);
 
 
-//#card-body
-var cardbody = document.createElement("div");
-cardbody.setAttribute("class", "card-text mx-4 d-flex rounded bg-light");
+                        //#card-body
+                        var cardbody = document.createElement("div");
+                        cardbody.setAttribute("class", "card-text mx-4 d-flex rounded bg-light");
 
-//#title
-var cardtitle = document.createElement("h4");
-cardtitle.setAttribute("class", "card-title mx-4 d-flex rounded bg-light");
-var ctitle = document.createTextNode(title);
-cardtitle.appendChild(ctitle);
+                        //#title
+                        var cardtitle = document.createElement("h4");
+                        cardtitle.setAttribute("class", "card-title mx-4 d-flex rounded bg-light");
+                        var ctitle = document.createTextNode(title);
+                        cardtitle.appendChild(ctitle);
 
-//#description
-var cardtext = document.createElement("p");
-cardtext.setAttribute("class", "card-text mx-4 d-flex rounded bg-light");
-cardtext.setAttribute("class", "text-dark bg-primary rounded-start");
-cardtext.setAttribute("class", "h-100 p-3 d-flex flex-column justify-content-center text-center");
-var ctext = document.createTextNode(description);
-cardtext.appendChild(ctext);
+                        //#description
+                        var cardtext = document.createElement("p");
+                        cardtext.setAttribute("class", "card-text mx-4 d-flex rounded bg-light");
+                        cardtext.setAttribute("class", "text-dark bg-primary rounded-start");
+                        cardtext.setAttribute("class", "h-100 p-3 d-flex flex-column justify-content-center text-center");
+                        var ctext = document.createTextNode(description);
+                        cardtext.appendChild(ctext);
 
  
 
-                            //#update button
-                            var button_update = document.createElement("a");
-                            button_update.setAttribute("class", "btn btn-primary border-primary bg-primary rounded-pill");
-                            var data_url_update = "createpost.html".concat("?postid=",postid);
-                            button_update.setAttribute("href",data_url_update);
-                            button_update.setAttribute("id","update");
-                            var updatebuttontext = document.createTextNode("Update");
-                            button_update.appendChild(updatebuttontext);
-                            cardbody.appendChild(button_update);
+                        //#update button
+                        var button_update = document.createElement("a");
+                        button_update.setAttribute("class", "btn btn-primary border-primary bg-primary rounded-pill");
+                        var data_url_update = "createpost.html".concat("?postid=",postid);
+                        button_update.setAttribute("href",data_url_update);
+                        button_update.setAttribute("id","update");
+                        var updatebuttontext = document.createTextNode("Update");
+                        button_update.appendChild(updatebuttontext);
+                        cardbody.appendChild(button_update);
 
-                            //#delete button
-                            var button_delete = document.createElement("a");
-                            button_delete.setAttribute("class","btn btn-danger border-primary bg-primary rounded-pill");
-                            var data_url_delete = "deletepost.php".concat("?postid=",postid);
-                            button_delete.setAttribute("href",data_url_delete);
-                            button_delete.setAttribute("id","delete");
-                            var deletebuttontext = document.createTextNode("Delete");
-                            button_delete.appendChild(deletebuttontext);
-                            cardbody.appendChild(button_delete);
+                        //#delete button
+                        var button_delete = document.createElement("a");
+                        button_delete.setAttribute("class","btn btn-danger border-primary bg-primary rounded-pill");
+                        var data_url_delete = "deletepost.php".concat("?postid=",postid);
+                        button_delete.setAttribute("href",data_url_delete);
+                        button_delete.setAttribute("id","delete");
+                        var deletebuttontext = document.createTextNode("Delete");
+                        button_delete.appendChild(deletebuttontext);
+                        cardbody.appendChild(button_delete);
 
-                            // Attach card components to card-body
-cardbody.appendChild(cardtitle);
-cardbody.appendChild(cardtext);
-card.appendChild(cardbody);     
+                        // Attach card components to card-body
+                        cardbody.appendChild(cardtitle);
+                        cardbody.appendChild(cardtext);
+                        card.appendChild(cardbody);     
 
-                            //Attach card to document
-                            document.getElementById("mypost").appendChild(card);
+                        //Attach card to document
+                        document.getElementById("mypost").appendChild(card);
                             }
                         }
                         
@@ -330,21 +348,21 @@ card.appendChild(cardbody);
                         var userid = allposts[post].userid; 
 
                        //#card
-var card = document.createElement("div");
-card.setAttribute("class", "col-md-6 col-lg-4 wow bounceInUp");
-card.setAttribute("data-wow-delay", "0.1s");
-card.setAttribute("id", listing_id);
+                        var card = document.createElement("div");
+                        card.setAttribute("class", "col-md-6 col-lg-4 wow bounceInUp");
+                        card.setAttribute("data-wow-delay", "0.1s");
+                        card.setAttribute("id", postid);
 
 
-//#card-body
-var cardbody = document.createElement("div");
-cardbody.setAttribute("class", "card-text mx-4 d-flex rounded bg-light");
+                        //#card-body
+                        var cardbody = document.createElement("div");
+                        cardbody.setAttribute("class", "card-text mx-4 d-flex rounded bg-light");
 
-//#title
-var cardtitle = document.createElement("h4");
-cardtitle.setAttribute("class", "card-title mx-4 d-flex rounded bg-light");
-var ctitle = document.createTextNode(title);
-cardtitle.appendChild(ctitle);
+                        //#title
+                        var cardtitle = document.createElement("h4");
+                        cardtitle.setAttribute("class", "card-title mx-4 d-flex rounded bg-light");
+                        var ctitle = document.createTextNode(posttitle);
+                        cardtitle.appendChild(ctitle);
 
                          //#person who published
                          var cardsubtitle = document.createElement("h6");
@@ -354,8 +372,8 @@ cardtitle.appendChild(ctitle);
 
 
                          
-                          //#card-text
-                          var cardtext = document.createElement("p");
+                         //#card-text
+                         var cardtext = document.createElement("p");
                          cardtext.setAttribute("class","card-text mx-4 d-flex rounded bg-light");
                          cardtext.setAttribute("class", "text-dark bg-primary rounded-start" );
                          cardtext.setAttribute("class", "h-100 p-3 d-flex flex-column justify-content-center text-center" );
@@ -385,6 +403,27 @@ cardtitle.appendChild(ctitle);
                 .catch(error => {
                     console.log(error.message)
                 })
+            }
+
+            //search function
+            var searchElem = document.getElementById("search");
+            searchElem.addEventListener("keyup", search);
+
+            function search() {
+
+                var textEnteredByUser = event.target.value;
+                var url = "search.php";
+                para = {query : textEnteredByUser};
+
+                axios.get(url, {params:para})
+                        .then(response => {
+                            console.log(response.data)
+                            document.getElementById("searchresults").innerHTML = response.data;
+                        })
+                        .catch(error => {
+                            console.log(error.message)
+                            document.getElementById("searchresults").innerText = error.message;
+                        });
             }
         </script>
 
