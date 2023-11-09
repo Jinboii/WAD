@@ -162,7 +162,7 @@
                     loginandout.href = "logout.php"; 
                 }
 
-                if (user_type == "organization") {  //CONDITIONAL TO DETERMINE ORG OR OTHERS DISPLAY
+                if (user_type == "admin") {  //CONDITIONAL TO DETERMINE ORG OR OTHERS DISPLAY
                     
                     var sortcat = document.getElementById("sortcat");
                     sortcat.setAttribute("class","d-none");
@@ -230,45 +230,41 @@
                          var img_link = img_directory.concat(image);
                         
                          
-                         //#card
-                         var card = document.createElement("span");
+                          //#card
+                          var card = document.createElement("span");
                         card.setAttribute("class","card col-lg-4 col-md-6 col-sm-12 h-30");
                         //card.setAttribute("style","width:400px");
                         card.setAttribute("id",listing_id);
 
-                        //  #image
-                         var cardimg = document.createElement("IMG");
-                         cardimg.setAttribute("src",img_link);
-                         cardimg.setAttribute("class","img-thumbnail");
-                         cardimg.setAttribute("style","width: 420px; height: 420px; object-fit: cover");
-                         cardimg.setAttribute("alt", "");
-                         card.appendChild(cardimg);
+                        //#image
 
-                         //#card-body
-                         var cardbody = document.createElement("div");
-                         cardbody.setAttribute("class","card-text mx-4 d-flex rounded bg-light flex-fill");
-                         cardbody.classList.add("truncatedText");
-                         
+                        var cardimg = document.createElement("IMG");
+                        cardimg.setAttribute("src",img_link);
+                        cardimg.setAttribute("class","card-img-top");
+                        card.appendChild(cardimg);
 
-                         //#title
-                         var cardtitle = document.createElement("h4");
-                         cardtitle.setAttribute("class","card-title  rounded bg-light card-title-center");
-                         var ctitle = document.createTextNode(title);
-                         cardtitle.appendChild(ctitle);
+                        //#card-body
+                        var cardbody = document.createElement("p");
+                        cardbody.setAttribute("class","card-body");
+                        // cardbody.classList.add("line-clamp-1");
 
-                         //#card-text
-                         var cardtext = document.createElement("p");
-                         cardtext.setAttribute("class","card-text mx-4 d-flex rounded bg-light");
-                         cardtext.classList.add("truncatedText");
-                         cardtext.setAttribute("class", "text-dark bg-primary rounded-start flex-fill" );
-                         cardtext.setAttribute("class", "h-100 p-3 d-flex flex-column" );
-                         var ctext = document.createTextNode(description);
-                         cardtext.appendChild(ctext);
+                        //#title
+                        var cardtitle = document.createElement("h4");
+                        cardtitle.setAttribute("class","card-title");
+                        var ctitle = document.createTextNode(title);
+                        cardtitle.appendChild(ctitle);
+
+                        //#card-text
+                        var cardtext = document.createElement("p");
+                        cardtext.setAttribute("class","card-text");
+                        var ctext = document.createTextNode(description);
+                        cardtext.appendChild(ctext);
+                        cardtext.classList.add("line-clamp-1");
 
                          //Attach card components to card-body
                          cardbody.appendChild(cardtitle);
                          cardbody.appendChild(cardtext);
-                         card.appendChild(cardbody);    
+                         card.appendChild(cardbody);  
                         
 
                          document.getElementById("archive").appendChild(card);
@@ -351,14 +347,13 @@
 
                          cardbody.appendChild(cardtitle);
                          cardbody.appendChild(cardtext);
-                        
                            
                         
                         //org listings button
-                         if (user_type == "organization") {  
+                         if (user_type == "admin") {  
                             //#update button
                             var button_update = document.createElement("a");
-                            button_update.setAttribute("class","btn btn-primary border-primary bg-primary rounded-pill mx-2");
+                            button_update.setAttribute("class","btn btn-primary border-primary bg-primary rounded-pill mx-1");
                             var data_url_update = "upload.html".concat("?listing_id=",listing_id);
                             button_update.setAttribute("href",data_url_update);
                             button_update.setAttribute("id","update");
@@ -368,7 +363,7 @@
 
                             //#delete button
                             var button_delete = document.createElement("a");
-                            button_delete.setAttribute("class","btn btn-danger bg-danger rounded-pill mx-1");
+                            button_delete.setAttribute("class","btn btn-danger mx-1 bg-danger border-danger rounded-pill");
                             var data_url_delete = "delete.php".concat("?listing_id=",listing_id);
                             button_delete.setAttribute("href",data_url_delete);
                             button_delete.setAttribute("id","delete");
@@ -379,7 +374,7 @@
                             //#accept button
                             if(donater!="") {
                                 var button_accept = document.createElement("a");
-                                button_accept.setAttribute("class","btn btn-primary border-primary bg-success rounded-pill mx-1 text-white");
+                                button_accept.setAttribute("class","btn btn-success bg-success border-success text-white mx-1 rounded-pill");
                                 var data_url_accept = "accept.php".concat("?listing_id=",listing_id);
                                 button_accept.setAttribute("href",data_url_accept);
                                 var acceptbuttontext = document.createTextNode("Accept");
@@ -491,7 +486,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                        <span class="text-light"><a href="#"><i class="fas fa-copyright text-light me-2"></i>Your Site Name</a>, All right reserved.</span>
+                        <span class="text-light"><a href="#"><i class="fas fa-copyright text-light me-2"></i>ReBirth</a>, All right reserved.</span>
                     </div>
                 </div>
             </div>
