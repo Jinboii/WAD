@@ -43,5 +43,26 @@
             $pdo = null;
             return $user;
         }
+
+        public function getAllOrganizations(){
+
+            $conn_manager = new ConnectionManager();
+            $pdo = $conn_manager->getConnection();
+    
+            $sql = "SELECT username FROM users WHERE role = 'admin'";
+    
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute();
+            $stmt->setFetchMode(PDO::FETCH_ASSOC);
+    
+            $names = [];
+    
+        while ($row = $stmt->fetch()) {
+            $names[] = $row['username'];
+        }
+                $stmt = null;
+                $pdo = null; 
+        return $names;         
+        }
     }
 ?>

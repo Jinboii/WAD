@@ -69,7 +69,7 @@
                     </div>
                     <button class="btn-search btn btn-primary btn-md-square me-4 rounded-circle d-none d-lg-inline-flex" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fas fa-search"></i></button>
                     <a id="profileicon"></a>
-                    <a href="login.html" class="btn btn-primary py-2 px-4 d-none d-xl-inline-block rounded-pill" id="loginandout">Login</a>
+                    <a href="" class="btn btn-primary py-2 px-4 d-none d-xl-inline-block rounded-pill" id="loginandout"></a>
                 </div>
             </nav>
         </div>
@@ -87,11 +87,11 @@
                     </div>
                     <div class="modal-body d-flex align-items-center">
                         <div class="input-group w-75 mx-auto d-flex">
-                            <input type="search" class="form-control bg-transparent p-3" placeholder="Search ReBirth" aria-describedby="search-icon-1">
+                            <input id="search" type="search" class="form-control bg-transparent p-3" placeholder="Search ReBirth" aria-describedby="search-icon-1">
                             <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
-                            <a href="login.html" class="btn btn-primary py-2 px-4 d-none d-xl-inline-block rounded-pill">Login</a>
                         </div>
                     </div>
+                    <ul  id="searchresults" class="modal-body d-flex align-items-center fs-4"></ul>
                 </div>
             </div>
         </div>
@@ -106,9 +106,7 @@
                         <small class="d-inline-block fw-bold text-dark text-uppercase bg-light border border-primary rounded-pill px-4 py-1 mb-4 animated bounceInDown">Welcome to ReBirth</small>
                         <h1 class="display-1 mb-4 animated bounceInDown"> <span class="text-primary">Re</span>Birth: Reimagining Giving, Redifining Generosity</h1>
                     </div>
-
-                    <a href="register.html" class="btn btn-primary py-2 px-4 d-none d-xl-inline-block rounded-pill">Register</a>
-
+                    <a id="register" href="register.html" class="w-25 btn btn-primary py-2 px-4 d-none d-xl-inline-block rounded-pill">Register</a>
                 </div>
             </div>
         </div>
@@ -515,13 +513,15 @@
                 loginandout.href = "login.html";
             }
             else {
+                var register_button = document.getElementById("register");
+                register_button.setAttribute("class","d-none")
                 var loginandout = document.getElementById("loginandout");
                 var loginandout_textnode = document.createTextNode("Logout");
                 loginandout.appendChild(loginandout_textnode);
                 
                 var profileicon = document.getElementById("profileicon");
-                var profileimg = document.createElement("IMG");
-                profileimg.setAttribute("src","default_pictures/profile.png");
+                var profileimg = document.createElement("i");
+                profileimg.classList.add("fas", "fa-user", "fa-2x", "text-primary", "me-4"); 
 
                 var profilelink = document.createElement("a");
                 profilelink.setAttribute("href","analytics.html")
@@ -551,6 +551,27 @@
             }}).catch(error => {     
                     console.log(error.message)
                 })
+
+            //search function
+            var searchElem = document.getElementById("search");
+            searchElem.addEventListener("keyup", search);
+
+            function search() {
+
+                var textEnteredByUser = event.target.value;
+                var url = "search.php";
+                para = {query : textEnteredByUser};
+
+                axios.get(url, {params:para})
+                        .then(response => {
+                            console.log(response.data)
+                            document.getElementById("searchresults").innerHTML = response.data;
+                        })
+                        .catch(error => {
+                            console.log(error.message)
+                            document.getElementById("searchresults").innerText = error.message;
+                        });
+            }
             
         </script>
     </body>
