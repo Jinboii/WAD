@@ -112,9 +112,10 @@
         <!-- Blog Start -->
         <div class="container-fluid blog py-6">
             <div id="createbutton"></div>
-            <div id="mypost">my posts shown here</div>
-            all posts here
-            <div id="allpost" class="container-fluid row"></div>
+            <div id="mypost" class="container-fluid row">
+                <h1>My Posts</h1></div>
+       
+            <div id="allpost" class="container-fluid row"> <h1>All Posts</h1></div>
         </div>
 
         
@@ -162,12 +163,7 @@
                     <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
                         <span class="text-light"><a href="#"><i class="fas fa-copyright text-light me-2"></i>ReBirth</a>, All right reserved.</span>
                     </div>
-                    <div class="col-md-6 my-auto text-center text-md-end text-white">
-                        <!--/*** This template is free as long as you keep the below author’s credit link/attribution link/backlink. ***/-->
-                        <!--/*** If you'd like to use the template without the below author’s credit link/attribution link/backlink, ***/-->
-                        <!--/*** you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". ***/-->
-                        Designed By <a class="border-bottom" href="https://htmlcodex.com">HTML Codex</a> Distributed By <a class="border-bottom" href="https://themewagon.com">ThemeWagon</a>
-                    </div>
+                   
                 </div>
             </div>
         </div>
@@ -245,13 +241,19 @@
 
                     //#create post button
                     var anchorlink = document.createElement("a");
-                    anchorlink.setAttribute("href","createpost.html");
+                    anchorlink.setAttribute("href", "createpost.html");
                     var createbutton = document.createElement("button");
+                    createbutton.classList.add("btn", "btn-primary", "border-primary", "bg-primary", "rounded-pill");
                     var createbuttontext = document.createTextNode("Create");
                     createbutton.appendChild(createbuttontext);
                     anchorlink.appendChild(createbutton);
+                    var container = document.createElement("div");
+                    container.classList.add("d-flex", "justify-content-center");
+                    container.appendChild(anchorlink);
+                    // Assuming you have an element with id "createbutton" where you want to append the button
                     var createarea = document.getElementById("createbutton");
-                    createarea.appendChild(anchorlink);
+                    createarea.appendChild(container);
+
 
                     // Display the users post
                     let api_endpoint_url = "displaypost.php"
@@ -267,37 +269,79 @@
                             var userid = allposts[post].userid; 
 
                             if (user_id == userid) {
-                        
-                        //#card
-                        var card = document.createElement("div");
-                        card.setAttribute("class", "col-md-6 col-lg-4 wow bounceInUp");
-                        card.setAttribute("data-wow-delay", "0.1s");
+
+                                //#card
+                        var card = document.createElement("span");
+                        card.setAttribute("class", "card col-lg-6 col-md-6 col-sm-12 h-30 bg-light");
                         card.setAttribute("id", postid);
 
 
                         //#card-body
-                        var cardbody = document.createElement("div");
-                        cardbody.setAttribute("class", "card-text mx-4 d-flex rounded bg-light");
+                        var cardbody = document.createElement("p");
+                        cardbody.setAttribute("class", "card-body fs-bold");
+
+
 
                         //#title
-                        var cardtitle = document.createElement("h4");
-                        cardtitle.setAttribute("class", "card-title mx-4 d-flex rounded bg-light");
-                        var ctitle = document.createTextNode(title);
+                        var cardtitle = document.createElement("h2");
+                        cardtitle.setAttribute("class", "card-title fw-bold text-primary");
+                        var ctitle = document.createTextNode(posttitle);
                         cardtitle.appendChild(ctitle);
+
+                        //#person who published
+                        var cardsubtitle = document.createElement("h7");
+                        cardsubtitle.setAttribute("class","card-text mb-2 text-muted fst-italic");
+                        var csubtitle = document.createTextNode("Author: ".concat(userid));
+                        cardsubtitle.appendChild(csubtitle);
+
 
                         //#description
                         var cardtext = document.createElement("p");
-                        cardtext.setAttribute("class", "card-text mx-4 d-flex rounded bg-light");
-                        cardtext.setAttribute("class", "text-dark bg-primary rounded-start");
-                        cardtext.setAttribute("class", "h-100 p-3 d-flex flex-column justify-content-center text-center");
-                        var ctext = document.createTextNode(description);
+                        cardtext.setAttribute("class", "card-text text-dark");
+                        var ctext = document.createTextNode(postcontent);
                         cardtext.appendChild(ctext);
+                        cardtext.classList.add("line-clamp-2");
+
+                         //Attach card components to card-body
+                         cardbody.appendChild(cardtitle);
+                         cardbody.appendChild(cardsubtitle);
+                         cardbody.appendChild(cardtext);
+                         card.appendChild(cardbody);    
+                        
+                        // //#card
+                        // var card = document.createElement("span");
+                        // card.setAttribute("class", "card col-lg-6 col-md-12 col-sm-6 h-30");
+                        // card.setAttribute("id", postid);
+
+
+                        // //#card-body
+                        // var cardbody = document.createElement("p");
+                        // cardbody.setAttribute("class", "card-body");
+
+
+
+                        // //#title
+                        // var cardtitle = document.createElement("h4");
+                        // cardtitle.setAttribute("class", "card-title");
+                        // var ctitle = document.createTextNode(title);
+                        // cardtitle.appendChild(ctitle);
+
+                       
+
+
+                        // //#description
+                        // var cardtext = document.createElement("p");
+                        // cardtext.setAttribute("class", "card-text ");
+                        // var ctext = document.createTextNode(description);
+                        // cardtext.appendChild(ctext);
+                       
 
  
-
+                        cardbody.appendChild(cardtitle);
+                        cardbody.appendChild(cardtext);
                         //#update button
                         var button_update = document.createElement("a");
-                        button_update.setAttribute("class", "btn btn-primary border-primary bg-primary rounded-pill");
+                        button_update.setAttribute("class", "btn btn-primary border-primary bg-primary rounded-pill mx-1");
                         var data_url_update = "createpost.html".concat("?postid=",postid);
                         button_update.setAttribute("href",data_url_update);
                         button_update.setAttribute("id","update");
@@ -307,7 +351,7 @@
 
                         //#delete button
                         var button_delete = document.createElement("a");
-                        button_delete.setAttribute("class","btn btn-danger border-primary bg-primary rounded-pill");
+                        button_delete.setAttribute("class","btn btn-danger border-danger bg-danger rounded-pill mx-1");
                         var data_url_delete = "deletepost.php".concat("?postid=",postid);
                         button_delete.setAttribute("href",data_url_delete);
                         button_delete.setAttribute("id","delete");
@@ -316,8 +360,8 @@
                         cardbody.appendChild(button_delete);
 
                         // Attach card components to card-body
-                        cardbody.appendChild(cardtitle);
-                        cardbody.appendChild(cardtext);
+                        // cardbody.appendChild(cardtitle);
+                        // cardbody.appendChild(cardtext);
                         card.appendChild(cardbody);     
 
                         //Attach card to document
@@ -347,48 +391,86 @@
                         var postcontent = allposts[post].postcontent; 
                         var userid = allposts[post].userid; 
 
-                       //#card
-                        var card = document.createElement("div");
-                        card.setAttribute("class", "col-md-6 col-lg-4 wow bounceInUp");
-                        card.setAttribute("data-wow-delay", "0.1s");
-                        card.setAttribute("id", postid);
+                    //    //#card
+                    //     var card = document.createElement("div");
+                    //     card.setAttribute("class", "col-md-4 col-lg-6 mx-1 wow bounceInUp");
+                    //     card.setAttribute("data-wow-delay", "0.1s");
+                    //     card.setAttribute("id", postid);
 
 
-                        //#card-body
-                        var cardbody = document.createElement("div");
-                        cardbody.setAttribute("class", "card-text mx-4 d-flex rounded bg-light");
+                        // //#card-body
+                        // var cardbody = document.createElement("div");
+                        // cardbody.setAttribute("class", "card-text mx-4 d-flex rounded bg-light");
 
-                        //#title
-                        var cardtitle = document.createElement("h4");
-                        cardtitle.setAttribute("class", "card-title mx-4 d-flex rounded bg-light");
-                        var ctitle = document.createTextNode(posttitle);
-                        cardtitle.appendChild(ctitle);
+                        // //#title
+                        // var cardtitle = document.createElement("h4");
+                        // cardtitle.setAttribute("class", "card-title mx-4 d-flex rounded bg-light");
+                        // var ctitle = document.createTextNode(posttitle);
+                        // cardtitle.appendChild(ctitle);
 
-                         //#person who published
-                         var cardsubtitle = document.createElement("h6");
-                         cardsubtitle.setAttribute("class","card-subtitle mb-2 text-dark");
-                         var csubtitle = document.createTextNode("Author: ".concat(userid));
-                         cardsubtitle.appendChild(csubtitle);
+                        //  //#person who published
+                        //  var cardsubtitle = document.createElement("h6");
+                        //  cardsubtitle.setAttribute("class","card-subtitle mb-2 text-dark");
+                        //  var csubtitle = document.createTextNode("Author: ".concat(userid));
+                        //  cardsubtitle.appendChild(csubtitle);
 
 
                          
-                         //#card-text
-                         var cardtext = document.createElement("p");
-                         cardtext.setAttribute("class","card-text mx-4 d-flex rounded bg-light");
-                         cardtext.setAttribute("class", "text-dark bg-primary rounded-start" );
-                         cardtext.setAttribute("class", "h-100 p-3 d-flex flex-column justify-content-center text-center" );
-                         var ctext = document.createTextNode(postcontent);
-                         cardtext.appendChild(ctext);
+                        //  //#card-text
+                        //  var cardtext = document.createElement("p");
+                        //  cardtext.setAttribute("class","card-text mx-4 d-flex rounded bg-light");
+                        //  cardtext.setAttribute("class", "text-dark bg-primary rounded-start" );
+                        //  cardtext.setAttribute("class", "h-100 p-3 d-flex flex-column justify-content-center text-center" );
+                        //  var ctext = document.createTextNode(postcontent);
+                        //  cardtext.appendChild(ctext);
+
+                        var container123 =document.createElement("div");
+                        container123.setAttribute("class", "center-cards");
+
+                        //#card
+                        var card = document.createElement("span");
+                        card.setAttribute("class", "card col-lg-6 col-md-6 col-sm-12 h-30 bg-light mb-2");
+                        //card.setAttribute("id", postid);
+                        container123.appendChild(card);
+
+                        //#card-body
+                        var cardbody = document.createElement("p");
+                        cardbody.setAttribute("class", "card-body fw-bold");
+
+
+
+                        //#title
+                        var cardtitle = document.createElement("h4");
+                        cardtitle.setAttribute("class", "card-title fw-bold text-primary");
+                        var ctitle = document.createTextNode(posttitle);
+                        cardtitle.appendChild(ctitle);
+
+                        //#person who published
+                        var cardsubtitle = document.createElement("h6");
+                        cardsubtitle.setAttribute("class","card-text mb-2 text-muted fst-italic");
+                        var csubtitle = document.createTextNode("Author: ".concat(userid));
+                        cardsubtitle.appendChild(csubtitle);
+
+
+                        //#description
+                        var cardtext = document.createElement("p");
+                        cardtext.setAttribute("class", "card-text text-dark");
+                        var ctext = document.createTextNode(postcontent);
+                        cardtext.appendChild(ctext);
+                        cardtext.classList.add("line-clamp-2");
 
                          //Attach card components to card-body
                          cardbody.appendChild(cardtitle);
                          cardbody.appendChild(cardsubtitle);
                          cardbody.appendChild(cardtext);
                          card.appendChild(cardbody);    
+                         container123.appendChild(card);
 
                          //Attach card to document
+                         document.body.appendChild(container123);
                          document.getElementById("allpost").appendChild(card);
-                        
+                         //document.body.appendChild(container123);
+                     
                     }
                     
                 })
