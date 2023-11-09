@@ -174,13 +174,22 @@
                     hiddencat.appendChild(hiddencat_textnode);
                     
                     //#create button
-                    var anchorlink = document.createElement("a");
-                    anchorlink.setAttribute("href","upload.html");
-                    var createbutton = document.createElement("button");
-                    var createbuttontext = document.createTextNode("Create");
-                    createbutton.appendChild(createbuttontext);
-                    anchorlink.appendChild(createbutton)
-                    document.getElementById("org_buttons").appendChild(anchorlink);
+                    var orgButtons = document.getElementById("org_buttons");
+
+                    var buttonContainer = document.createElement("div");
+                    buttonContainer.classList.add("text-center");
+
+                    var createButton = document.createElement("button");
+                    createButton.setAttribute("type", "submit");
+                    createButton.classList.add("w-50", "btn", "btn-primary", "border-primary", "bg-primary", "rounded-pill");
+                    createButton.textContent = "Create";
+
+                    var anchorLink = document.createElement("a");
+                    anchorLink.setAttribute("href", "upload.html");
+
+                    anchorLink.appendChild(createButton);
+                    buttonContainer.appendChild(anchorLink);
+                    orgButtons.appendChild(buttonContainer);
 
                     document.getElementById("archive").innerHTML = "<h2>Past listings</h2>";
 
@@ -209,45 +218,41 @@
                         
                          
                          //#card
-                        
-                         var card = document.createElement("div");
-                         card.setAttribute("class", "col-md-6 col-lg-4 wow bounceInUp");
-                        card.setAttribute("data-wow-delay", "0.1s");
-                         card.setAttribute("id",listing_id);
+var card = document.createElement("div");
+card.setAttribute("class", "col-md-6 col-lg-4 wow bounceInUp");
+card.setAttribute("data-wow-delay", "0.1s");
+card.setAttribute("id", listing_id);
 
-                         //#image
-                         var cardimg = document.createElement("IMG");
-                         cardimg.setAttribute("src",img_link);
-                         cardimg.setAttribute("class","img-thumbnail");
-                         cardimg.setAttribute("style","width: 420px; height: 420px; object-fit: cover");
-                         cardimg.setAttribute("alt", "");
-                         card.appendChild(cardimg);
+//#image
+var cardimg = document.createElement("img");
+cardimg.setAttribute("src", img_link);
+cardimg.setAttribute("class", "img-thumbnail");
+cardimg.setAttribute("style", "width: 420px; height: 420px; object-fit: cover");
+cardimg.setAttribute("alt", "");
+card.appendChild(cardimg);
 
-                    
+//#card-body
+var cardbody = document.createElement("div");
+cardbody.setAttribute("class", "card-text mx-4 d-flex rounded bg-light");
 
-                         //#card-body
-                         var cardbody = document.createElement("div");
-                         cardbody.setAttribute("class","card-text mx-4 d-flex rounded bg-light");
-                         
+//#title
+var cardtitle = document.createElement("h4");
+cardtitle.setAttribute("class", "card-title mx-4 d-flex rounded bg-light");
+var ctitle = document.createTextNode(title);
+cardtitle.appendChild(ctitle);
 
-                         //#title
-                         var cardtitle = document.createElement("h4");
-                         cardtitle.setAttribute("class","card-title mx-4 d-flex rounded bg-light");
-                         var ctitle = document.createTextNode(title);
-                         cardtitle.appendChild(ctitle);
+//#description
+var cardtext = document.createElement("p");
+cardtext.setAttribute("class", "card-text mx-4 d-flex rounded bg-light");
+cardtext.setAttribute("class", "text-dark bg-primary rounded-start");
+cardtext.setAttribute("class", "h-100 p-3 d-flex flex-column justify-content-center text-center");
+var ctext = document.createTextNode(description);
+cardtext.appendChild(ctext);
 
-                         //#card-text
-                         var cardtext = document.createElement("p");
-                         cardtext.setAttribute("class","card-text mx-4 d-flex rounded bg-light");
-                         cardtext.setAttribute("class", "text-dark bg-primary rounded-start" );
-                         cardtext.setAttribute("class", "h-100 p-3 d-flex flex-column justify-content-center text-center" );
-                         var ctext = document.createTextNode(description);
-                         cardtext.appendChild(ctext);
-
-                         //Attach card components to card-body
-                         cardbody.appendChild(cardtitle);
-                         cardbody.appendChild(cardtext);
-                         card.appendChild(cardbody);    
+// Attach card components to card-body
+cardbody.appendChild(cardtitle);
+cardbody.appendChild(cardtext);
+card.appendChild(cardbody);    
                         
 
                          document.getElementById("archive").appendChild(card);
@@ -296,13 +301,13 @@
 
 
 // Append the container to the document or a specific element where you want to display the cards
-
+document.body.appendChild(containerFluid);
 
                          //#card
                         
                          var card = document.createElement("div");
                          card.setAttribute("class", "col-md-6 col-lg-4 wow bounceInUp");
-                         card.setAttribute("data-wow-delay", "0.1s");
+                        card.setAttribute("data-wow-delay", "0.1s");
                          card.setAttribute("id",listing_id);
 
                          //#image
@@ -342,18 +347,21 @@
                         //org listings button
                          if (user_type == "organization") {  
                             //#update button
+                          
+
                             var button_update = document.createElement("a");
-                            button_update.setAttribute("class","btn btn-primary");
-                            var data_url_update = "upload.html".concat("?listing_id=",listing_id);
-                            button_update.setAttribute("href",data_url_update);
-                            button_update.setAttribute("id","update");
-                            var updatebuttontext = document.createTextNode("Update");
-                            button_update.appendChild(updatebuttontext);
+                            button_update.setAttribute("class", "btn btn-primary border-primary bg-primary rounded-pill"); 
+                            var data_url_update = "upload.html".concat("?listing_id=", listing_id);
+                            button_update.setAttribute("href", data_url_update);
+                            button_update.setAttribute("id", "update");
+                            var updateButtonText = document.createTextNode("Update");
+                            button_update.appendChild(updateButtonText);
                             cardbody.appendChild(button_update);
+
 
                             //#delete button
                             var button_delete = document.createElement("a");
-                            button_delete.setAttribute("class","btn btn-danger");
+                            button_delete.setAttribute("class","btn btn-danger border-primary bg-primary rounded-pill");
                             var data_url_delete = "delete.php".concat("?listing_id=",listing_id);
                             button_delete.setAttribute("href",data_url_delete);
                             button_delete.setAttribute("id","delete");
@@ -364,7 +372,7 @@
                             //#accept button
                             if(donater!="") {
                                 var button_accept = document.createElement("a");
-                                button_accept.setAttribute("class","btn btn-secondary");
+                                button_accept.setAttribute("class","btn btn-primary border-primary bg-primary rounded-pill");
                                 var data_url_accept = "accept.php".concat("?listing_id=",listing_id);
                                 button_accept.setAttribute("href",data_url_accept);
                                 var acceptbuttontext = document.createTextNode("Accept");
@@ -378,7 +386,7 @@
 
                             //Learn abt org button
                             var button_learn = document.createElement("a");
-                                button_learn.setAttribute("class","btn btn-secondary");
+                                button_learn.setAttribute("class","btn btn-primary border-primary bg-primary rounded-pill");
                                 var data_url_organization = "organization.html".concat("?Organization=",organization);
                                 button_learn.setAttribute("href",data_url_organization);
                                 var learnbuttontext = document.createTextNode("Learn more about the organization");
@@ -389,7 +397,7 @@
                             if(user_type == "user"){
                                 if(donater == "") {
                                 var button_offer = document.createElement("a");
-                                button_offer.setAttribute("class","btn btn-secondary");
+                                button_offer.setAttribute("class","btn btn-primary border-primary bg-primary rounded-pill");
                                 var data_url_offer = "offer.php".concat("?listing_id=",listing_id,"&donater_id=",user_id);
                                 button_offer.setAttribute("href",data_url_offer);
                                 var offerbuttontext = document.createTextNode("Offer");
@@ -434,12 +442,7 @@
                         <div class="footer-item">
                             <h1 class="text-primary mb-4 ">Re<span class="text-dark">Birth</span></h1>
                             
-                            <!-- <div class="footer-icon d-flex">
-                                <a class="btn btn-primary btn-sm-square me-2 rounded-circle" href=""><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-primary btn-sm-square me-2 rounded-circle" href=""><i class="fab fa-twitter"></i></a>
-                                <a href="#" class="btn btn-primary btn-sm-square me-2 rounded-circle"><i class="fab fa-instagram"></i></a>
-                                <a href="#" class="btn btn-primary btn-sm-square rounded-circle"><i class="fab fa-linkedin-in"></i></a>
-                            </div> -->
+                           
                         </div>
                     </div>
                     
