@@ -28,7 +28,8 @@
         <!-- Template Stylesheet -->
         <link href="css/style.css" rel="stylesheet">
         <!-- Vue.js CDN -->
-        <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script> -->
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     </head>
 
     <body>
@@ -44,7 +45,7 @@
         <div class="container-fluid nav-bar">
             <div class="container">
                 <nav class="navbar navbar-light navbar-expand-lg py-4">
-                    <a href="Front/index.html" class="navbar-brand">
+                    <a href="index.html" class="navbar-brand">
                         <h1 class="text-primary fw-bold mb-0">Re<span class="text-dark">Birth</span> </h1>
                     </a>
                     <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
@@ -68,8 +69,7 @@
                             <a href="contact.html" class="nav-item nav-link">Contact</a>
                         </div>
                         <button class="btn-search btn btn-primary btn-md-square me-4 rounded-circle d-none d-lg-inline-flex" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fas fa-search"></i></button>
-                        <a id="profileicon"></a>
-                        <a href="" class="btn btn-primary py-2 px-4 d-none d-xl-inline-block rounded-pill" id="loginandout"></a>
+                        
                     </div>
                 </nav>
             </div>
@@ -87,10 +87,11 @@
                     </div>
                     <div class="modal-body d-flex align-items-center">
                         <div class="input-group w-75 mx-auto d-flex">
-                            <input type="search" class="form-control bg-transparent p-3" placeholder="Search ReBirth" aria-describedby="search-icon-1">
+                            <input id="search" type="search" class="form-control bg-transparent p-3" placeholder="Search ReBirth" aria-describedby="search-icon-1">
                             <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
                         </div>
                     </div>
+                    <ul  id="searchresults" class="modal-body d-flex align-items-center fs-4"></ul>
                 </div>
             </div>
         </div>
@@ -177,7 +178,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                        <span class="text-light"><a href="#"><i class="fas fa-copyright text-light me-2"></i>Your Site Name</a>, All right reserved.</span>
+                        <span class="text-light"><a href="#"><i class="fas fa-copyright text-light me-2"></i>ReBirth</a>, All right reserved.</span>
                     </div>
                     <div class="col-md-6 my-auto text-center text-md-end text-white">
                         <!--/*** This template is free as long as you keep the below author’s credit link/attribution link/backlink. ***/-->
@@ -218,9 +219,7 @@
         
                 // Hide or show elements based on the URL
                 var current_link = window.location.href;
-                if (current_link.includes("login")) {
-                    document.getElementById("loginandout").classList.add("d-none");
-                }
+               
                 if (current_link.includes("success")) {
                     alert("Successful Logout!");
                 }
@@ -265,18 +264,29 @@
                     }
                 });
             });
+            
+            var searchElem = document.getElementById("search");
+            searchElem.addEventListener("keyup", search);
+
+            function search() {
+
+                var textEnteredByUser = event.target.value;
+                var url = "search.php";
+                para = {query : textEnteredByUser};
+
+                axios.get(url, {params:para})
+                        .then(response => {
+                            console.log(response.data)
+                            document.getElementById("searchresults").innerHTML = response.data;
+                        })
+                        .catch(error => {
+                            console.log(error.message)
+                            document.getElementById("searchresults").innerText = error.message;
+                        });
+            }
         </script>
         
      
         
     </body>
 </html>
- 
- 
- 
- 
- 
- 
- 
- 
-
