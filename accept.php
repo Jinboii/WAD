@@ -171,3 +171,45 @@
     echo $result;
     ?>
 </body>
+
+ <!-- Footer Start -->
+        <div class="container-fluid footer py-6 my-6 mb-0 bg-light wow bounceInUp" data-wow-delay="0.1s">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="footer-item">
+                            <h1 class="text-primary mb-4 ">Re<span class="text-dark">Birth</span></h1>
+                            
+                
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-3 col-md-6">
+                        <div class="footer-item">
+                            <h4 class="mb-4">Contact Us</h4>
+                            <div class="d-flex flex-column align-items-start custom-colour">
+                                <p><i class="fa fa-map-marker-alt text-primary me-2"></i> Singapore Management University</p>
+                                <p><i class="fa fa-phone-alt text-primary me-2"></i> +65 8675 8675</p>
+                                <p><i class="fas fa-envelope text-primary me-2"></i> rebirth@info.email</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <!-- Footer End -->
+
+
+        <!-- Copyright Start -->
+        <div class="container-fluid copyright bg-dark py-4">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                        <span class="text-light"><a href="#"><i class="fas fa-copyright text-light me-2"></i>ReBirth</a>, All right reserved.</span>
+                    </div>
+                
+                </div>
+            </div>
+        </div>
+        <!-- Copyright End -->
