@@ -69,7 +69,7 @@
                         </div>
                         <button class="btn-search btn btn-primary btn-md-square me-4 rounded-circle d-none d-lg-inline-flex" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fas fa-search"></i></button>
                         <a id="profileicon"></a>
-                        <a href="" class="btn btn-primary py-2 px-4 d-none d-xl-inline-block rounded-pill" id="loginandout"></a>
+                        <a href="login.html" class="btn btn-primary py-2 px-4 d-none d-xl-inline-block rounded-pill" id="loginandout"></a>
                     </div>
                 </nav>
             </div>
@@ -120,8 +120,8 @@
         <!-- Blog End -->
         <script>
             function displaylist() {
-    
-                let usercheck_url = "userlog.php"
+                console.log("hello")
+                let usercheck_url = "userlog.php";
 
                 axios.get(usercheck_url) //FIRST AXIOS START  --CHECK FOR USERTYPE & USERID
                 .then(response => {
@@ -130,7 +130,7 @@
                 var user_type = response.data[0].usertype;
                 
                 
-                if (user_id=='') {
+                if (user_id=='' || user_id == undefined || user_id== null) {
                     var loginandout = document.getElementById("loginandout");
                     var loginandout_textnode = document.createTextNode("Login");
                     loginandout.appendChild(loginandout_textnode);
@@ -302,7 +302,7 @@
                         
                          var card = document.createElement("div");
                          card.setAttribute("class", "col-md-6 col-lg-4 wow bounceInUp");
-                        card.setAttribute("data-wow-delay", "0.1s");
+                         card.setAttribute("data-wow-delay", "0.1s");
                          card.setAttribute("id",listing_id);
 
                          //#image
