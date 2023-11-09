@@ -175,13 +175,16 @@
                     hiddencat.appendChild(hiddencat_textnode);
                     
                     //#create button
-                    var anchorlink = document.createElement("a");
-                    anchorlink.setAttribute("href","upload.html");
-                    var createbutton = document.createElement("button");
-                    var createbuttontext = document.createTextNode("Create");
-                    createbutton.appendChild(createbuttontext);
-                    anchorlink.appendChild(createbutton)
-                    document.getElementById("org_buttons").appendChild(anchorlink);
+                    var createButton = document.createElement("button");
+                    createButton.setAttribute("type", "submit");
+                    createButton.classList.add("w-50", "btn", "btn-primary", "border-primary", "bg-primary", "rounded-pill");
+                    createButton.textContent = "Create";
+
+                    var anchorLink = document.createElement("a");
+                    anchorLink.setAttribute("href", "upload.html");
+
+                    anchorLink.appendChild(createButton);
+                    buttonContainer.appendChild(anchorLink);
 
                     document.getElementById("archive").innerHTML = "<h2>Past listings</h2>";
 
