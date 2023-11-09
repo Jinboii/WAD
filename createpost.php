@@ -89,7 +89,7 @@
 
         <!-- Template Stylesheet -->
         <link href="css/style.css" rel="stylesheet">
-        <title>Listings</title>
+        <title>Create a Post </title>
        </head>
 
     <body>
@@ -146,9 +146,13 @@
         </div>
     </div>
 </div>
+
+        
 <body>
     <?php
     echo $result;
     ?>
 </body>
 <!-- Modal Search End -->
+
+
