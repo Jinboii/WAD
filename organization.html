@@ -187,11 +187,13 @@
                 loginandout.appendChild(loginandout_textnode);
                 
                 var profileicon = document.getElementById("profileicon");
-                var profileimg = document.createElement("IMG");
-                profileimg.setAttribute("src","default_pictures/profile.png");
-
+                var profileiconElement = document.createElement("i");
+                profileiconElement.classList.add("fa-solid", "fa-user");
                 var profilelink = document.createElement("a");
-                profilelink.setAttribute("href","analytics.html")
+                profilelink.setAttribute("href", "analytics.html");
+                profilelink.appendChild(profileiconElement);
+                profileicon.appendChild(profilelink);
+
 
 
                 if (user_type == "organization") {
@@ -246,39 +248,48 @@
                 var img_link = img_directory.concat(image);
                         
                          
+                
                 //#card
-                var card = document.createElement("span");
-                card.setAttribute("class","card col-4 h-30");
-                //card.setAttribute("style","width:400px");
-                card.setAttribute("id",listing_id);
+var card = document.createElement("span");
+card.setAttribute("class", "col-md-6 col-lg-4 wow bounceInUp");
+card.setAttribute("data-wow-delay", "0.1s");
+card.setAttribute("id", listing_id);
 
+               
                 //#image
-                var cardimg = document.createElement("IMG");
-                cardimg.setAttribute("src",img_link);
-                cardimg.setAttribute("class","img-fluid");
-                card.appendChild(cardimg);
+var cardimg = document.createElement("img");
+cardimg.setAttribute("src", img_link);
+cardimg.setAttribute("class", "img-thumbnail");
+cardimg.setAttribute("style", "width: 420px; height: 420px; object-fit: cover");
+cardimg.setAttribute("alt", "");
+card.appendChild(cardimg);
 
                 //#card-body
+                
                 var cardbody = document.createElement("div");
-                cardbody.setAttribute("class","card-body");
+cardbody.setAttribute("class", "card-text mx-4 d-flex rounded bg-light");
 
                 //#title
                 var cardtitle = document.createElement("h4");
-                cardtitle.setAttribute("class","card-title");
-                var ctitle = document.createTextNode(title);
-                cardtitle.appendChild(ctitle);
+cardtitle.setAttribute("class", "card-title mx-4 d-flex rounded bg-light");
+var ctitle = document.createTextNode(title);
+cardtitle.appendChild(ctitle);
 
                 //#card-text
                 var cardtext = document.createElement("p");
-                cardtext.setAttribute("class","card-text");
-                var ctext = document.createTextNode(description);
-                cardtext.appendChild(ctext);
+cardtext.setAttribute("class", "card-text mx-4 d-flex rounded bg-light");
+cardtext.setAttribute("class", "text-dark bg-primary rounded-start");
+cardtext.setAttribute("class", "h-100 p-3 d-flex flex-column justify-content-center text-center");
+var ctext = document.createTextNode(description);
+cardtext.appendChild(ctext);
 
                 //Attach card components to card-body
                 cardbody.appendChild(cardtitle);
-                cardbody.appendChild(cardtext);
-                card.appendChild(cardbody);    
-                        
+cardbody.appendChild(cardtext);
+card.appendChild(cardbody);    
+
+
+                
 
                 document.getElementById("current").appendChild(card);
                 }
@@ -313,38 +324,44 @@
                     var img_link = img_directory.concat(image);
                         
                          
-                    //#card
-                    var card = document.createElement("span");
-                    card.setAttribute("class","card col-4 h-30");
-                    //card.setAttribute("style","width:400px");
-                    card.setAttribute("id",listing_id);
+                     //#card
+var card = document.createElement("span");
+card.setAttribute("class", "col-md-6 col-lg-4 wow bounceInUp");
+card.setAttribute("data-wow-delay", "0.1s");
+card.setAttribute("id", listing_id);
 
-                    //#image
-                    var cardimg = document.createElement("IMG");
-                    cardimg.setAttribute("src",img_link);
-                    cardimg.setAttribute("class","img-fluid");
-                    card.appendChild(cardimg);
+               
+                //#image
+var cardimg = document.createElement("img");
+cardimg.setAttribute("src", img_link);
+cardimg.setAttribute("class", "img-thumbnail");
+cardimg.setAttribute("style", "width: 420px; height: 420px; object-fit: cover");
+cardimg.setAttribute("alt", "");
+card.appendChild(cardimg);
 
-                    //#card-body
-                    var cardbody = document.createElement("div");
-                    cardbody.setAttribute("class","card-body");
+                //#card-body
+                
+                var cardbody = document.createElement("div");
+cardbody.setAttribute("class", "card-text mx-4 d-flex rounded bg-light");
 
-                    //#title
-                    var cardtitle = document.createElement("h4");
-                    cardtitle.setAttribute("class","card-title");
-                    var ctitle = document.createTextNode(title);
-                    cardtitle.appendChild(ctitle);
+                //#title
+                var cardtitle = document.createElement("h4");
+cardtitle.setAttribute("class", "card-title mx-4 d-flex rounded bg-light");
+var ctitle = document.createTextNode(title);
+cardtitle.appendChild(ctitle);
 
-                    //#card-text
-                    var cardtext = document.createElement("p");
-                    cardtext.setAttribute("class","card-text");
-                    var ctext = document.createTextNode(description);
-                    cardtext.appendChild(ctext);
+                //#card-text
+                var cardtext = document.createElement("p");
+cardtext.setAttribute("class", "card-text mx-4 d-flex rounded bg-light");
+cardtext.setAttribute("class", "text-dark bg-primary rounded-start");
+cardtext.setAttribute("class", "h-100 p-3 d-flex flex-column justify-content-center text-center");
+var ctext = document.createTextNode(description);
+cardtext.appendChild(ctext);
 
-                    //Attach card components to card-body
-                    cardbody.appendChild(cardtitle);
-                    cardbody.appendChild(cardtext);
-                    card.appendChild(cardbody);    
+                //Attach card components to card-body
+                cardbody.appendChild(cardtitle);
+cardbody.appendChild(cardtext);
+card.appendChild(cardbody);    
                         
 
                     document.getElementById("archive").appendChild(card);
