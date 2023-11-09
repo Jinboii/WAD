@@ -231,18 +231,18 @@
                         
                          
                          //#card
-                        
-                         var card = document.createElement("div");
-                         card.setAttribute("class", "col-md-6 col-lg-4 wow bounceInUp");
-                        card.setAttribute("data-wow-delay", "0.1s");
-                         card.setAttribute("id",listing_id);
+                         var card = document.createElement("span");
+                        card.setAttribute("class","card col-lg-4 col-md-6 col-sm-12 h-30");
+                        //card.setAttribute("style","width:400px");
+                        card.setAttribute("id",listing_id);
 
                         //  #image
-                    
                          var cardimg = document.createElement("IMG");
-                        cardimg.setAttribute("src",img_link);
-                        cardimg.setAttribute("class","card-img-top");
-                        card.appendChild(cardimg);
+                         cardimg.setAttribute("src",img_link);
+                         cardimg.setAttribute("class","img-thumbnail");
+                         cardimg.setAttribute("style","width: 420px; height: 420px; object-fit: cover");
+                         cardimg.setAttribute("alt", "");
+                         card.appendChild(cardimg);
 
                          //#card-body
                          var cardbody = document.createElement("div");
@@ -252,9 +252,8 @@
 
                          //#title
                          var cardtitle = document.createElement("h4");
-                         cardtitle.setAttribute("class","card-title mx-4 d-flex  rounded bg-light");
+                         cardtitle.setAttribute("class","card-title  rounded bg-light card-title-center");
                          var ctitle = document.createTextNode(title);
-                         ctitle.classList.add("class-title-")
                          cardtitle.appendChild(ctitle);
 
                          //#card-text
@@ -262,7 +261,7 @@
                          cardtext.setAttribute("class","card-text mx-4 d-flex rounded bg-light");
                          cardtext.classList.add("truncatedText");
                          cardtext.setAttribute("class", "text-dark bg-primary rounded-start flex-fill" );
-                         cardtext.setAttribute("class", "h-100 p-3 d-flex flex-column justify-content-center text-center" );
+                         cardtext.setAttribute("class", "h-100 p-3 d-flex flex-column" );
                          var ctext = document.createTextNode(description);
                          cardtext.appendChild(ctext);
 
@@ -352,13 +351,14 @@
 
                          cardbody.appendChild(cardtitle);
                          cardbody.appendChild(cardtext);
+                        
                            
                         
                         //org listings button
                          if (user_type == "organization") {  
                             //#update button
                             var button_update = document.createElement("a");
-                            button_update.setAttribute("class","btn btn-primary border-primary bg-primary rounded-pill");
+                            button_update.setAttribute("class","btn btn-primary border-primary bg-primary rounded-pill mx-2");
                             var data_url_update = "upload.html".concat("?listing_id=",listing_id);
                             button_update.setAttribute("href",data_url_update);
                             button_update.setAttribute("id","update");
@@ -368,7 +368,7 @@
 
                             //#delete button
                             var button_delete = document.createElement("a");
-                            button_delete.setAttribute("class","btn btn-danger border-primary bg-danger rounded-pill");
+                            button_delete.setAttribute("class","btn btn-danger bg-danger rounded-pill mx-1");
                             var data_url_delete = "delete.php".concat("?listing_id=",listing_id);
                             button_delete.setAttribute("href",data_url_delete);
                             button_delete.setAttribute("id","delete");
@@ -379,7 +379,7 @@
                             //#accept button
                             if(donater!="") {
                                 var button_accept = document.createElement("a");
-                                button_accept.setAttribute("class","class","btn btn-primary border-primary bg-primary rounded-pill");
+                                button_accept.setAttribute("class","btn btn-primary border-primary bg-success rounded-pill mx-1 text-white");
                                 var data_url_accept = "accept.php".concat("?listing_id=",listing_id);
                                 button_accept.setAttribute("href",data_url_accept);
                                 var acceptbuttontext = document.createTextNode("Accept");
