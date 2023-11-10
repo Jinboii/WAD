@@ -20,7 +20,7 @@ Use localhost to access the local code.
 Organizations:
 
 1. 
-Username: Giving.sg
+Username: Giving_SG
 Password: Givingsg
 
 2. 
